@@ -1,0 +1,127 @@
+apply plugin: "org.jetbrains.kotlin.jvm"
+
+private static String trimStart(String str) {
+    def i = 0
+    for (; i < str.length(); i++) {
+        if (str[i] != ' ' && str[i] != '\t') {
+            break
+        }
+    }
+    return str.substring(i)
+}
+
+String.metaClass.trimStart = { -> trimStart((String) delegate) }
+
+private static String applyColorFormatting(String str, String symbol = '&') {
+    def validFormatCode = [
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
+        'k', 'l', 'm', 'n', 'o', 'r'
+    ]
+
+    validFormatCode.forEach { code ->
+        str = str.replace("${symbol}${code}", "§${code}")
+    }
+
+    return str
+}
+
+String.metaClass.applyColorFormat = { String symbol = '&' -> applyColorFormatting((String) delegate, symbol) }
+
+tasks.build {
+    // make sure the language file is up-to-date when building.
+    // but you still need to self-update it when running dev clients (e.g. `runClient21`).
+    dependsOn "generatedLanguageFiles"
+}
+
+tasks.register("generateLanguageFiles") {
+    group = "overpowered"
+
+    doLast {
+        def sources = [sourceSets.main.allSource]
+        // the locales to be recognized
+        def languages = ["en", "zh", "tw"]
+
+        Map<String, StringBuilder> languageFileBuilders = [:]
+        // init all string builders
+        languages.forEach {
+            languageFileBuilders[it] = new StringBuilder("# This file is auto-generated. Don't modify!\n\n")
+        }
+
+        // iterate source sets like main/java or main/kotlin
+        for (final def src in sources) {
+            // iterate the files in the source set
+            src.each { file ->
+                // filter non code files
+                if(!(file.name.endsWith(".java") || file.name.endsWith(".kt"))) return
+
+                // 0 - IDLE, looking for key
+                // 1 - Keyed, looking for any value, or next key
+                def state = 0
+
+                def key = null
+                // [key, [locale, text]]
+                Map<String, Map<String, String>> value = [:]
+
+                // iterate all the text lines
+                file.text.eachLine { line, index ->
+                    // `rawLine` is used for debugging
+                    def rawLine = line
+
+                    // remove whitespaces before the first non-ws character
+                    line = line.trimStart()
+
+                    // find the keyword
+                    if (line.startsWith("// #tr ")) {
+                        key = line.substring("// #tr ".length())
+                        value[key] = [:]
+                        state = 1
+                    }
+                    if (line.startsWith("// #")) {
+                        line = line.substring("// #".length())
+                        languages.forEach { lang ->
+                            if (line.startsWith(lang)) {
+                                if (state == 1) {
+                                    def v = line.substring(lang.length()).trim().applyColorFormat()
+                                    if (v.endsWith("\\")) {
+                                        v.substring(0, v.length() - 1)
+                                    }
+                                    value[key][lang] = v
+                                } else {
+                                    // print error message
+                                    println "Dangling TranslatedCode found"
+                                    println "${file}:${index + 1}: ${rawLine.trim()}"
+                                }
+                            }
+                        }
+                    } else {
+                        state = 0
+                    }
+                }
+
+                // put file name
+                languages.forEach { String lang ->
+                    languageFileBuilders[lang].append("# ${rootDir.relativePath(file)}").append("\n")
+                }
+                // put kv pairs
+                value.forEach { k, localizedValues ->
+                    localizedValues.forEach { lang, v ->
+                        languageFileBuilders[lang].append("${k}=${v}").append("\n")
+                    }
+                }
+            }
+        }
+
+/*
+
+        languageFileBuilders.forEach { locale, sb ->
+            println "${locale}\n${sb.toString()}"
+        }
+*/
+
+        // you need to create these files manually!
+
+        file("${rootDir}/src/main/resources/assets/Overpowered/lang/en_US.lang").write(languageFileBuilders["en"].toString(), "UTF-8")
+        file("${rootDir}/src/main/resources/assets/Overpowered/lang/zh_CN.lang").write(languageFileBuilders["zh"].toString(), "UTF-8")
+        file("${rootDir}/src/main/resources/assets/Overpowered/lang/zh_TW.lang").write(languageFileBuilders["tw"].toString(), "UTF-8")
+    }
+}

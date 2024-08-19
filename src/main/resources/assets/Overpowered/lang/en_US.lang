@@ -1,0 +1,39 @@
+# This file is auto-generated. Don't modify!
+
+# src/main/java/cn/taskeren/op/mixin/Insurance_BaseMetaTileEntity_Mixin.java
+# src/main/java/cn/taskeren/op/mixin/package-info.java
+# src/main/kotlin/cn/taskeren/op/forge/ClientInit.kt
+# src/main/kotlin/cn/taskeren/op/forge/CommonInit.kt
+# src/main/kotlin/cn/taskeren/op/forge/OP_Mod.kt
+Overpowered_Author_Taskeren=§6§lTaskeren
+# src/main/kotlin/cn/taskeren/op/gt/IdItemContainer.kt
+# src/main/kotlin/cn/taskeren/op/gt/init/OP_GTRegistrar.kt
+# src/main/kotlin/cn/taskeren/op/gt/init/OP_ItemList.kt
+# src/main/kotlin/cn/taskeren/op/gt/init/OP_MachineItemList.kt
+# src/main/kotlin/cn/taskeren/op/gt/item/OP_GeneratedItem.kt
+# src/main/kotlin/cn/taskeren/op/gt/OP_AbstractMachine.kt
+# src/main/kotlin/cn/taskeren/op/gt/single/OP_ActiveTransformerRack.kt
+# src/main/kotlin/cn/taskeren/op/gt/single/OP_OverpowerMachine.kt
+# src/main/kotlin/cn/taskeren/op/gt/utils/extension/ModularUIExtension.kt
+# src/main/kotlin/cn/taskeren/op/gt/utils/InfoDataBuilder.kt
+# src/main/kotlin/cn/taskeren/op/gt/utils/OP_Text.kt
+# src/main/kotlin/cn/taskeren/op/gt/utils/TextureSetBuilder.kt
+# src/main/kotlin/cn/taskeren/op/insurance/InsuranceManager.kt
+Insurance_Message_MachineExploded=Your machine exploded at %s/%s/%s!
+Insurance_Message_NoSuchMachineExploded=Unable to find the machine explosion record.
+Insurance_Message_Success=The machine is back to your inventory!
+Insurance_Message_CannotAfford=You cannot afford the payment!
+# src/main/kotlin/cn/taskeren/op/insurance/InsuranceWorldSavedData.kt
+# src/main/kotlin/cn/taskeren/op/mc/command/CommandInsurance.kt
+Insurance_Command_Help.0=Insurance Command Help
+Insurance_Command_Help.1=/insurance list - List all the exploded machines recorded in the insurance.
+Insurance_Command_Help.2=/insurance refund <id> - Make a refund request for the machine with id.
+Insurance_Command_Help.3=You'll need to have some emeralds to pay for the insurance.
+Insurance_Message_ExplodedMachineList=Your insurance covers %s machines.
+# src/main/kotlin/cn/taskeren/op/mc/event/WorldGameRuleManager.kt
+# src/main/kotlin/cn/taskeren/op/mc/util/EntityPlayerExtension.kt
+Command_InvalidArgument=Invalid argument: %s
+# src/main/kotlin/cn/taskeren/op/mc/util/NBTExtension.kt
+# src/main/kotlin/cn/taskeren/op/OP.kt
+# src/main/kotlin/cn/taskeren/op/OP_Logger.kt
+# src/main/kotlin/cn/taskeren/op/utils/ClientOnly.kt
