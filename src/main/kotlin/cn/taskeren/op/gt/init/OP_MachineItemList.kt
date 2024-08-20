@@ -20,6 +20,8 @@ enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logg
 	OverpowerMachine(14301),
 	ActiveTransformerRack(14302),
 
+	DebugEnergyHatch(17508),
+
 	;
 
 	private lateinit var theItem: ItemStack
