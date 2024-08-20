@@ -1,5 +1,6 @@
 package cn.taskeren.op.insurance
 
+import cn.taskeren.op.OP
 import cn.taskeren.op.OP_Logger
 import cn.taskeren.op.mc.util.sendTranslatedMessage
 import gregtech.api.GregTech_API
@@ -23,6 +24,10 @@ object InsuranceManager : OP_Logger {
 
 	fun onMachineExplode(bmte: BaseMetaTileEntity) {
 		logger.info("{} exploded! owner: {}", bmte, bmte.ownerUuid)
+
+		if(OP.dev || OP.propertyDumpStackTraceOnMachineExplode) {
+			logger.info("The machine explosion stacktrace.", Throwable())
+		}
 
 		val ownerPlayer =
 			MinecraftServer.getServer().configurationManager.playerEntityList.firstOrNull { it.uniqueID == bmte.ownerUuid }

@@ -3,5 +3,8 @@
   "package": "cn.taskeren.op.mixin",
   "mixins": [
     "Insurance_BaseMetaTileEntity_Mixin"
+  ],
+  "client": [
+    "CrashProof_ModularGui_Mixin"
   ]
 }

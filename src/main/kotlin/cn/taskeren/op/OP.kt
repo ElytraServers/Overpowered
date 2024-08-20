@@ -17,6 +17,8 @@ object OP : OP_Logger {
 	@get:JvmName("isDev")
 	var dev = System.getenv("DEV") == "true" || Launch.blackboard["fml.deobfuscatedEnvironment"] as Boolean
 
+	val propertyDumpStackTraceOnMachineExplode get() = System.getProperty("op.dumpStackTraceOnMachineExplode") == "true"
+
 	val gtMachineBlock get() = GregTech_API.sBlockMachines
 
 	val livingBioChip get() = ItemList.Circuit_Parts_Chip_Bioware.get(1)

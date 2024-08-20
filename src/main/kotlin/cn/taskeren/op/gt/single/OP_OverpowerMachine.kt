@@ -1,6 +1,7 @@
 package cn.taskeren.op.gt.single
 
 import cn.taskeren.op.gt.OP_AbstractMachine
+import cn.taskeren.op.gt.utils.OP_Text
 import gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER
 import gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE
 import gregtech.api.enums.Textures.BlockIcons.OVERLAY_BOTTOM_SCANNER_ACTIVE_GLOW
@@ -83,6 +84,11 @@ class OP_OverpowerMachine : OP_AbstractMachine {
 					.build()
 			)
 		)
+
+		private val desc = arrayOf(
+			"Machine Overpower System",
+			OP_Text.TOOLTIP_CREDIT,
+		)
 	}
 
 	constructor(aID: Int, aName: String, aNameRegional: String, aTier: Int) : super(
@@ -91,7 +97,7 @@ class OP_OverpowerMachine : OP_AbstractMachine {
 		aNameRegional,
 		aTier,
 		2,
-		arrayOf("Awaken!"),
+		desc,
 		1 + 1,
 		1,
 		*textures

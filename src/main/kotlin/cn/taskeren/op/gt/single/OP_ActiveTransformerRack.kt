@@ -1,6 +1,8 @@
 package cn.taskeren.op.gt.single
 
 import cn.taskeren.op.OP
+import cn.taskeren.op.gt.utils.InfoDataBuilder
+import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.buildInfoData
 import cn.taskeren.op.gt.utils.extension.drawable
 import cn.taskeren.op.gt.utils.extension.slot
@@ -35,6 +37,15 @@ import net.minecraftforge.common.util.ForgeDirection
  */
 class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 
+	companion object {
+		private val DESC = arrayOf(
+			"Generating Electric Energy from Multiblocks",
+			"Generates 1A ULV (8EU) by Default.",
+			"You can insert higher level ${InfoDataBuilder.BLUE}Dynamos ${InfoDataBuilder.GRAY}for better performance.",
+			OP_Text.TOOLTIP_CREDIT,
+		)
+	}
+
 	private var inventory: Array<ItemStack?> = arrayOfNulls(1)
 	private val inventoryHandler = ItemStackHandler(inventory)
 
@@ -67,6 +78,10 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 
 	override fun newMetaEntity(aTileEntity: IGregTechTileEntity): MetaTileEntity {
 		return OP_ActiveTransformerRack(mName, mTier.toInt(), Amperes, mDescriptionArray, mTextures)
+	}
+
+	override fun getDescription(): Array<String> {
+		return DESC
 	}
 
 	fun getDynamoTileEntity(): MetaTileEntity? {
@@ -155,7 +170,7 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 			drawable {
 				setDrawable(GT_UITextures.PICTURE_SCREEN_BLACK)
 				setPos(7, 16)
-				setSize(142, 45)
+				setSize(138, 45)
 			}
 			slot(inventoryHandler, 0) {
 				setAccess(true, true)
