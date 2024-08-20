@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(ModularGui.class)
+@Mixin(value = ModularGui.class, remap = false)
 public class CrashProof_ModularGui_Mixin {
 
     @Unique
