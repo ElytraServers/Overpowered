@@ -133,16 +133,38 @@ object OP_GTRegistrar {
 
 		// region Balanced Output Hatch
 
+		// #tr OP_NameBalancedOutputHatch_HV
+		// #en Balanced Output Hatch HV
+		// #zh 平衡输出仓 HV
 		OP_MachineItemList.BalancedOutputHatch_HV.registerMachine {
 			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_HV", "Balanced Output Hatch HV", 3)
+		}.addRecipe(RecipeMaps.assemblerRecipes) {
+			itemInputs(ItemList.Hatch_Output_HV.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemOutputs(it)
+			duration(8 * GT_RecipeBuilder.SECONDS)
+			eut(TierEU.RECIPE_HV)
 		}
-
+		// #tr OP_NameBalancedOutputHatch_LuV
+		// #en Balanced Output Hatch LuV
+		// #zh 平衡输出仓 LuV
 		OP_MachineItemList.BalancedOutputHatch_LuV.registerMachine {
 			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_LuV", "Balanced Output Hatch LuV", 6)
+		}.addRecipe(RecipeMaps.assemblerRecipes) {
+			itemInputs(ItemList.Hatch_Output_LuV.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemOutputs(it)
+			duration(8 * GT_RecipeBuilder.SECONDS)
+			eut(TierEU.RECIPE_HV)
 		}
-
+		// #tr OP_NameBalancedOutputHatch_UHV
+		// #en Balanced Output Hatch UHV
+		// #zh 平衡输出仓 UHV
 		OP_MachineItemList.BalancedOutputHatch_UHV.registerMachine {
 			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_UHV", "Balanced Output Hatch HV", 9)
+		}.addRecipe(RecipeMaps.assemblerRecipes) {
+			itemInputs(ItemList.Hatch_Output_MAX.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemOutputs(it)
+			duration(8 * GT_RecipeBuilder.SECONDS)
+			eut(TierEU.RECIPE_HV)
 		}
 
 		// endregion

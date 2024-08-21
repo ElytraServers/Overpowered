@@ -57,9 +57,9 @@ class OP_UniHatch : GT_MetaTileEntity_Hatch_InputBus, IDualInputHatch {
 		getItemSlotSize(aTier) + 1, // additional 1 is for the virtual circuit
 		arrayOf(
 			"${InfoDataBuilder.GOLD}Item ${InfoDataBuilder.GRAY}and ${InfoDataBuilder.BLUE}Fluid ${InfoDataBuilder.GRAY}Input for Multiblocks",
-			"Item Slots: ${InfoDataBuilder.YELLOW}${getItemSlotSize(aTier)}",
-			"Fluid Slots: ${InfoDataBuilder.YELLOW}${getFluidSlotSize(aTier)}",
-			"Fluid Capacity: ${InfoDataBuilder.YELLOW}${getFluidCapacityPerSlot(aTier)}",
+			"Item Slots: ${InfoDataBuilder.tiered(aTier)}${getItemSlotSize(aTier)}",
+			"Fluid Slots: ${InfoDataBuilder.tiered(aTier)}${getFluidSlotSize(aTier)}",
+			"Fluid Capacity: ${InfoDataBuilder.tiered(aTier)}${InfoDataBuilder.numberFormatted(getFluidCapacityPerSlot(aTier))}L",
 			OP_Text.TOOLTIP_CREDIT_NOVELTY,
 		),
 	) {
