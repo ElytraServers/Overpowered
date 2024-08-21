@@ -28,6 +28,10 @@ enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logg
 	UniHatch_HV(17503),
 	UniHatch_EV(17504),
 
+	BalancedOutputHatch_HV(17505),
+	BalancedOutputHatch_LuV(17506),
+	BalancedOutputHatch_UHV(17507),
+
 	DebugEnergyHatch(17508),
 
 	;

@@ -3,6 +3,7 @@ package cn.taskeren.op.gt.init
 import cn.taskeren.op.gt.addRecipe
 import cn.taskeren.op.gt.registerMachine
 import cn.taskeren.op.gt.single.OP_ActiveTransformerRack
+import cn.taskeren.op.gt.single.OP_BalancedOutputHatch
 import cn.taskeren.op.gt.single.OP_DebugEnergyHatch
 import cn.taskeren.op.gt.single.OP_OverpowerMachine
 import cn.taskeren.op.gt.single.OP_UniHatch
@@ -126,6 +127,22 @@ object OP_GTRegistrar {
 			itemOutputs(it)
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_EV)
+		}
+
+		// endregion
+
+		// region Balanced Output Hatch
+
+		OP_MachineItemList.BalancedOutputHatch_HV.registerMachine {
+			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_HV", "Balanced Output Hatch HV", 3)
+		}
+
+		OP_MachineItemList.BalancedOutputHatch_LuV.registerMachine {
+			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_LuV", "Balanced Output Hatch LuV", 6)
+		}
+
+		OP_MachineItemList.BalancedOutputHatch_UHV.registerMachine {
+			OP_BalancedOutputHatch(it, "OP_NameBalancedOutputHatch_UHV", "Balanced Output Hatch HV", 9)
 		}
 
 		// endregion
