@@ -9,6 +9,12 @@ fun NBTTagList.forEachCompound(block: (nbt: NBTTagCompound) -> Unit) {
 	}
 }
 
+fun NBTTagList.forEachCompoundIndexed(block: (index: Int, nbt: NBTTagCompound) -> Unit) {
+	for(i in 0 until tagCount()) {
+		block(i, getCompoundTagAt(i))
+	}
+}
+
 fun NBTTagList.getFloatAt(i: Int): Float = func_150308_e(i)
 fun NBTTagList.getDoubleAt(i: Int): Double = func_150309_d(i)
 fun NBTTagList.getIntArrayAt(i: Int): IntArray = func_150306_c(i)

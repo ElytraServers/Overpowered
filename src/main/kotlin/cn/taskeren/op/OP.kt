@@ -20,7 +20,6 @@ object OP : OP_Logger {
 	val propertyDumpStackTraceOnMachineExplode get() = System.getProperty("op.dumpStackTraceOnMachineExplode") == "true"
 
 	val gtMachineBlock get() = GregTech_API.sBlockMachines
-
 	val livingBioChip get() = ItemList.Circuit_Parts_Chip_Bioware.get(1)
 
 	fun isMachineBlock(block: Block) = block == gtMachineBlock

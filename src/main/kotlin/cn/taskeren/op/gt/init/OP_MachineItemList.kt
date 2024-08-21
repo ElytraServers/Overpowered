@@ -1,3 +1,5 @@
+@file:Suppress("EnumEntryName")
+
 package cn.taskeren.op.gt.init
 
 import cn.taskeren.op.OP_Logger
@@ -19,6 +21,12 @@ enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logg
 
 	OverpowerMachine(14301),
 	ActiveTransformerRack(14302),
+
+	UniHatch_ULV(17500),
+	UniHatch_LV(17501),
+	UniHatch_MV(17502),
+	UniHatch_HV(17503),
+	UniHatch_EV(17504),
 
 	DebugEnergyHatch(17508),
 
@@ -89,7 +97,7 @@ enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logg
 
 	override fun get(aAmount: Long, vararg aReplacements: Any?): ItemStack? {
 		sanityCheck()
-		if(GT_Utility.isStackValid(theItem)) {
+		if(GT_Utility.isStackInvalid(theItem)) {
 			logger.warn("Object in the OP_ItemList is null", NullPointerException())
 			return GT_Utility.copyAmount(aAmount.toInt(), aReplacements.filterIsInstance<ItemStack>().firstOrNull())
 		}

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack
 enum class OP_ItemList(override val id: Short) : IdItemContainer, OP_Logger {
 
 	DyingBioChip(1),
+	CertifiedElectrician(2),
 
 	;
 
@@ -83,7 +84,7 @@ enum class OP_ItemList(override val id: Short) : IdItemContainer, OP_Logger {
 
 	override fun get(aAmount: Long, vararg aReplacements: Any?): ItemStack? {
 		sanityCheck()
-		if(GT_Utility.isStackValid(theItem)) {
+		if(GT_Utility.isStackInvalid(theItem)) {
 			logger.warn("Object in the OP_ItemList is null", NullPointerException())
 			return GT_Utility.copyAmount(aAmount.toInt(), aReplacements.filterIsInstance<ItemStack>().firstOrNull())
 		}

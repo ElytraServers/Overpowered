@@ -15,6 +15,9 @@ object OP_GeneratedItem : GT_MetaGenerated_Item_X32("metaitem.op") {
 		OP_ItemList.DyingBioChip.registerItem {
 			addItem(it, "Dying Bio Chip", "Squeezed Living Bio Chip")
 		}
+		OP_ItemList.CertifiedElectrician.registerItem {
+			addItem(it, "Certified Electrician", "Proof of your qualifications on Electrical Engineering")
+		}
 	}
 
 }
