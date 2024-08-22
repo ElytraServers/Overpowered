@@ -1,39 +1,42 @@
 # This file is auto-generated. Don't modify!
 
-# src/main/java/cn/taskeren/op/mixin/Insurance_BaseMetaTileEntity_Mixin.java
-# src/main/java/cn/taskeren/op/mixin/package-info.java
-# src/main/kotlin/cn/taskeren/op/forge/ClientInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/CommonInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/OP_Mod.kt
 Overpowered_Author_Taskeren=§6§lTaskeren（楓）
-# src/main/kotlin/cn/taskeren/op/gt/IdItemContainer.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_GTRegistrar.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_ItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_MachineItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/item/OP_GeneratedItem.kt
-# src/main/kotlin/cn/taskeren/op/gt/OP_AbstractMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_ActiveTransformerRack.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_OverpowerMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/extension/ModularUIExtension.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/InfoDataBuilder.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/OP_Text.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/TextureSetBuilder.kt
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceManager.kt
+gt.blockmachines.overpower_machine.name=超级绝绝子机器强化系统
+gt.blockmachines.active_transformer_rack.name=有源变压器机械架
+gt.blockmachines.insurance_counter.name=星际保险公司柜台
+gt.blockmachines.uni_hatch_ulv.name=组合式输入仓 ULV
+gt.blockmachines.uni_hatch_lv.name=组合式输入仓 LV
+gt.blockmachines.uni_hatch_mv.name=组合式输入仓 MV
+gt.blockmachines.uni_hatch_hv.name=组合式输入仓 HV
+gt.blockmachines.uni_hatch_ev.name=组合式输入仓 EV
+gt.blockmachines.balanced_output_hatch_hv.name=平衡输出仓 HV
+gt.blockmachines.balanced_output_hatch_luv.name=平衡输出仓 LuV
+gt.blockmachines.balanced_output_hatch_uhv.name=平衡输出仓 UHV
+gt.blockmachines.debug_energy_hatch.name=上维领域超因果单元
+ActiveTransformerExplosionCore_Tooltip_1=有源变压器和其他 §9Tec§1Tech §7机器核心中的核心。
+ActiveTransformerExplosionCore_Tooltip_2=对其他机器使用就能点亮天空。
+ActiveTransformerExplosionCore_Tooltip_3=额外的核心能够制造更大的爆炸！（最多14个）
+Insurance_Message_ReceiptAlreadyBound=已经绑定过啦！
+Insurance_Message_ReceiptBindingSuccess=保险绑定成功！
+Insurance_Receipt_Bound=绑定的 MetaId：%s
+Insurance_Receipt_Unbound=未绑定
+gt.metaitem.op.32002.name=电工资格证
+gt.metaitem.op.32002.tooltip=证明你在电气工程的资历
+gt.metaitem.op.32003.name=保险单
+gt.metaitem.op.32004.name=有源变压器爆炸核心
+Insurance_Counter_Tooltip_1=保险柜台
+Insurance_Counter_Tooltip_2=将你爆炸的机器赔付回来！
+op.recipe.insurance_counter=保险柜台
 Insurance_Message_MachineExploded=你位于%s/%s/%s的机器爆炸了！
 Insurance_Message_NoSuchMachineExploded=无法找到机器爆炸的记录。
 Insurance_Message_Success=机器回到了你的背包里！
 Insurance_Message_CannotAfford=你付不起账单！
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceWorldSavedData.kt
-# src/main/kotlin/cn/taskeren/op/mc/command/CommandInsurance.kt
 Insurance_Command_Help.0=保险指令帮助
 Insurance_Command_Help.1=/insurance list - 列出所有记录在保险中的爆炸的机器。
-Insurance_Command_Help.2=/insurance refund <id> - 发起一个ID为id的机器的保险赔付。
-Insurance_Command_Help.3=你需要一些绿宝石来购买保险。
+Insurance_Command_Help.2=§m/insurance refund <id> - 发起一个ID为id的机器的保险赔付。
+Insurance_Command_Help.3=§m你需要一些绿宝石来购买保险。
+Insurance_Command_Help.4=/insurance clear - 清除所有保险记录。
 Insurance_Message_ExplodedMachineList=你的保险覆盖了%s台机器。
-# src/main/kotlin/cn/taskeren/op/mc/event/WorldGameRuleManager.kt
-# src/main/kotlin/cn/taskeren/op/mc/util/EntityPlayerExtension.kt
+Insurance_Message_ExplodedMachineListCleared=已清除保险记录
+itemGroup.op_creativeTab=Overpowered!
 Command_InvalidArgument=无效参数：%s
-# src/main/kotlin/cn/taskeren/op/mc/util/NBTExtension.kt
-# src/main/kotlin/cn/taskeren/op/OP.kt
-# src/main/kotlin/cn/taskeren/op/OP_Logger.kt
-# src/main/kotlin/cn/taskeren/op/utils/ClientOnly.kt

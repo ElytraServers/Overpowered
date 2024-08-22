@@ -1,29 +1,5 @@
 # This file is auto-generated. Don't modify!
 
-# src/main/java/cn/taskeren/op/mixin/Insurance_BaseMetaTileEntity_Mixin.java
-# src/main/java/cn/taskeren/op/mixin/package-info.java
-# src/main/kotlin/cn/taskeren/op/forge/ClientInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/CommonInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/OP_Mod.kt
 Overpowered_Author_Taskeren=§6§lTaskeren（楓）
-# src/main/kotlin/cn/taskeren/op/gt/IdItemContainer.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_GTRegistrar.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_ItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_MachineItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/item/OP_GeneratedItem.kt
-# src/main/kotlin/cn/taskeren/op/gt/OP_AbstractMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_ActiveTransformerRack.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_OverpowerMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/extension/ModularUIExtension.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/InfoDataBuilder.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/OP_Text.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/TextureSetBuilder.kt
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceManager.kt
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceWorldSavedData.kt
-# src/main/kotlin/cn/taskeren/op/mc/command/CommandInsurance.kt
-# src/main/kotlin/cn/taskeren/op/mc/event/WorldGameRuleManager.kt
-# src/main/kotlin/cn/taskeren/op/mc/util/EntityPlayerExtension.kt
-# src/main/kotlin/cn/taskeren/op/mc/util/NBTExtension.kt
-# src/main/kotlin/cn/taskeren/op/OP.kt
-# src/main/kotlin/cn/taskeren/op/OP_Logger.kt
-# src/main/kotlin/cn/taskeren/op/utils/ClientOnly.kt
+gt.blockmachines.active_transformer_rack.name=有源變壓器機械架
+gt.blockmachines.debug_energy_hatch.name=高等維度超因果單元

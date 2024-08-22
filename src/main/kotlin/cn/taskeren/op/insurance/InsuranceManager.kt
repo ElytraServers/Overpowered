@@ -53,10 +53,15 @@ object InsuranceManager : OP_Logger {
 		return InsuranceWorldSavedData.get().getInsuranceInfo(uuid)
 	}
 
+	fun clearMyExplodedMachines(uuid: UUID) {
+		InsuranceWorldSavedData.get().clearInsuranceInfo(uuid)
+	}
+
 	/**
 	 * @param player the player
 	 * @param mId the MetaTileEntity id
 	 */
+	@Deprecated("This is the old design!")
 	fun refundExplodedMachine(player: EntityPlayerMP, mId: Int): Boolean {
 		if(mId !in getMyExplodedMachines(player.uniqueID)) {
 			// #tr Insurance_Message_NoSuchMachineExploded
@@ -87,6 +92,14 @@ object InsuranceManager : OP_Logger {
 			player.sendTranslatedMessage("Insurance_Message_CannotAfford")
 			return false
 		}
+	}
+
+	fun hasExplodedMachine(uuid: UUID, metaId: Int): Boolean {
+		return metaId in InsuranceWorldSavedData.get().getInsuranceInfo(uuid)
+	}
+
+	fun refundExplodedMachine(uuid: UUID, metaId: Int): Boolean {
+		return InsuranceWorldSavedData.get().removeInsuranceInfo(uuid, metaId)
 	}
 
 }

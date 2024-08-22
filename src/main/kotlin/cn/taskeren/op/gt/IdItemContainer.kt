@@ -36,3 +36,7 @@ fun IdItemContainer.registerItem(block: (id: Int) -> ItemStack) = apply {
 fun IdItemContainer.addRecipe(recipeMap: IRecipeMap, block: GT_RecipeBuilder.(defaultItem: ItemStack) -> Unit) = apply {
 	GT_Values.RA.stdBuilder().apply { block(get(1)) }.addTo(recipeMap)
 }
+
+fun IdItemContainer.addRecipeSimple(block: (defaultItem: ItemStack) -> Unit) = apply {
+	block(get(1))
+}

@@ -27,14 +27,10 @@ private static String applyColorFormatting(String str, String symbol = '&') {
 
 String.metaClass.applyColorFormat = { String symbol = '&' -> applyColorFormatting((String) delegate, symbol) }
 
-tasks.build {
-    // make sure the language file is up-to-date when building.
-    // but you still need to self-update it when running dev clients (e.g. `runClient21`).
-    dependsOn "generatedLanguageFiles"
-}
-
 tasks.register("generateLanguageFiles") {
     group = "overpowered"
+
+    def outputFilenameComment = false
 
     doLast {
         def sources = [sourceSets.main.allSource]
@@ -71,7 +67,11 @@ tasks.register("generateLanguageFiles") {
                     line = line.trimStart()
 
                     // find the keyword
-                    if (line.startsWith("// #tr ")) {
+                    if (line.startsWith("// #tr! ")) {
+                        key = line.substring("// #tr! ".length()).toLowerCase(Locale.US)
+                        value[key] = [:]
+                        state = 1
+                    } else if (line.startsWith("// #tr ")) {
                         key = line.substring("// #tr ".length())
                         value[key] = [:]
                         state = 1
@@ -99,8 +99,10 @@ tasks.register("generateLanguageFiles") {
                 }
 
                 // put file name
-                languages.forEach { String lang ->
-                    languageFileBuilders[lang].append("# ${rootDir.relativePath(file)}").append("\n")
+                if(outputFilenameComment) {
+                    languages.forEach { String lang ->
+                        languageFileBuilders[lang].append("# ${rootDir.relativePath(file)}").append("\n")
+                    }
                 }
                 // put kv pairs
                 value.forEach { k, localizedValues ->
@@ -124,4 +126,14 @@ tasks.register("generateLanguageFiles") {
         file("${rootDir}/src/main/resources/assets/Overpowered/lang/zh_CN.lang").write(languageFileBuilders["zh"].toString(), "UTF-8")
         file("${rootDir}/src/main/resources/assets/Overpowered/lang/zh_TW.lang").write(languageFileBuilders["tw"].toString(), "UTF-8")
     }
+}
+
+tasks.build {
+    // make sure the language file is up-to-date when building.
+    // but you still need to self-update it when running dev clients (e.g. `runClient21`).
+    dependsOn tasks.generateLanguageFiles
+}
+
+tasks.processResources {
+    dependsOn tasks.generateLanguageFiles
 }

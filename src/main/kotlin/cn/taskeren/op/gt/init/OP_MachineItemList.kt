@@ -21,6 +21,7 @@ enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logg
 
 	OverpowerMachine(14301),
 	ActiveTransformerRack(14302),
+	InsuranceCounter(14303),
 
 	UniHatch_ULV(17500),
 	UniHatch_LV(17501),

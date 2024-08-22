@@ -1,39 +1,44 @@
 # This file is auto-generated. Don't modify!
 
-# src/main/java/cn/taskeren/op/mixin/Insurance_BaseMetaTileEntity_Mixin.java
-# src/main/java/cn/taskeren/op/mixin/package-info.java
-# src/main/kotlin/cn/taskeren/op/forge/ClientInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/CommonInit.kt
-# src/main/kotlin/cn/taskeren/op/forge/OP_Mod.kt
 Overpowered_Author_Taskeren=§6§lTaskeren
-# src/main/kotlin/cn/taskeren/op/gt/IdItemContainer.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_GTRegistrar.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_ItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/init/OP_MachineItemList.kt
-# src/main/kotlin/cn/taskeren/op/gt/item/OP_GeneratedItem.kt
-# src/main/kotlin/cn/taskeren/op/gt/OP_AbstractMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_ActiveTransformerRack.kt
-# src/main/kotlin/cn/taskeren/op/gt/single/OP_OverpowerMachine.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/extension/ModularUIExtension.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/InfoDataBuilder.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/OP_Text.kt
-# src/main/kotlin/cn/taskeren/op/gt/utils/TextureSetBuilder.kt
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceManager.kt
+gt.blockmachines.overpower_machine.name=Incredible Malicious Machine Overpowering System
+gt.blockmachines.active_transformer_rack.name=Active Transformer Rack
+gt.blockmachines.insurance_counter.name=Galactic Inc. Insurance Counter
+gt.blockmachines.uni_hatch_ulv.name=UniHatch ULV
+gt.blockmachines.uni_hatch_lv.name=UniHatch LV
+gt.blockmachines.uni_hatch_mv.name=UniHatch MV
+gt.blockmachines.uni_hatch_hv.name=UniHatch HV
+gt.blockmachines.uni_hatch_ev.name=UniHatch EV
+gt.blockmachines.balanced_output_hatch_hv.name=Balanced Output Hatch HV
+gt.blockmachines.balanced_output_hatch_luv.name=Balanced Output Hatch LuV
+gt.blockmachines.balanced_output_hatch_uhv.name=Balanced Output Hatch UHV
+gt.blockmachines.debug_energy_hatch.name=Ascendant Realm Paracausal Manipulating Unit
+ActiveTransformerExplosionCore_Tooltip_1=The very core of Active Transformer and other TecTech machines.
+ActiveTransformerExplosionCore_Tooltip_2=Put this on other machines to ignite the sky.
+ActiveTransformerExplosionCore_Tooltip_3=More cores can create a bigger explosion! (Max at 14)
+Insurance_Message_ReceiptAlreadyBound=It has already bound!
+Insurance_Message_ReceiptBindingSuccess=Insurance bound successfully!
+Insurance_Receipt_Bound=Bound MetaId: %s
+Insurance_Receipt_Unbound=Unbound
+gt.metaitem.op.32001.name=Dying Bio Chip
+gt.metaitem.op.32001.tooltip=Squeezed Living Bio Chip
+gt.metaitem.op.32002.name=Certified Electrician
+gt.metaitem.op.32002.tooltip=Proof of your qualifications on Electrical Engineering
+gt.metaitem.op.32003.name=Insurance Receipt
+gt.metaitem.op.32004.name=Active Transformer Explosion Core
+Insurance_Counter_Tooltip_1=Insurance Counter
+Insurance_Counter_Tooltip_2=Refund your exploded machines back!
+op.recipe.insurance_counter=Insurance Counter
 Insurance_Message_MachineExploded=Your machine exploded at %s/%s/%s!
 Insurance_Message_NoSuchMachineExploded=Unable to find the machine explosion record.
 Insurance_Message_Success=The machine is back to your inventory!
 Insurance_Message_CannotAfford=You cannot afford the payment!
-# src/main/kotlin/cn/taskeren/op/insurance/InsuranceWorldSavedData.kt
-# src/main/kotlin/cn/taskeren/op/mc/command/CommandInsurance.kt
 Insurance_Command_Help.0=Insurance Command Help
 Insurance_Command_Help.1=/insurance list - List all the exploded machines recorded in the insurance.
-Insurance_Command_Help.2=/insurance refund <id> - Make a refund request for the machine with id.
-Insurance_Command_Help.3=You'll need to have some emeralds to pay for the insurance.
+Insurance_Command_Help.2=§m/insurance refund <id> - Make a refund request for the machine with id.
+Insurance_Command_Help.3=§mYou'll need to have some emeralds to pay for the insurance.
+Insurance_Command_Help.4=/insurance clear - Clear all the insurance records.
 Insurance_Message_ExplodedMachineList=Your insurance covers %s machines.
-# src/main/kotlin/cn/taskeren/op/mc/event/WorldGameRuleManager.kt
-# src/main/kotlin/cn/taskeren/op/mc/util/EntityPlayerExtension.kt
+Insurance_Message_ExplodedMachineListCleared=Insurance records cleared
+itemGroup.op_creativeTab=Overpowered!
 Command_InvalidArgument=Invalid argument: %s
-# src/main/kotlin/cn/taskeren/op/mc/util/NBTExtension.kt
-# src/main/kotlin/cn/taskeren/op/OP.kt
-# src/main/kotlin/cn/taskeren/op/OP_Logger.kt
-# src/main/kotlin/cn/taskeren/op/utils/ClientOnly.kt

@@ -21,6 +21,14 @@ class InsuranceWorldSavedData(name: String) : WorldSavedData(name) {
 		return explodedMachines[uuid.toString()].orEmpty()
 	}
 
+	fun clearInsuranceInfo(uuid: UUID) {
+		val id = uuid.toString()
+		if(id in explodedMachines) {
+			explodedMachines -= id
+			markDirty()
+		}
+	}
+
 	fun removeInsuranceInfo(uuid: UUID, machineMetaTileId: Int): Boolean {
 		val list = explodedMachines[uuid.toString()] ?: return false
 		val flag =  list.remove(machineMetaTileId)
