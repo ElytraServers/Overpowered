@@ -14,7 +14,7 @@ public class Insurance_BaseMetaTileEntity_Mixin {
     private void onExplosion(long aAmount, CallbackInfo ci) {
         BaseMetaTileEntity self = (BaseMetaTileEntity) (Object) this;
         // calls the insurance manager
-        InsuranceManager.INSTANCE.onMachineExplode(self);
+        InsuranceManager.INSTANCE.onMachineExplode(self, aAmount);
     }
 
 }

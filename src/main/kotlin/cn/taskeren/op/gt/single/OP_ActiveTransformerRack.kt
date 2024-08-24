@@ -1,12 +1,12 @@
 package cn.taskeren.op.gt.single
 
 import cn.taskeren.op.OP
-import cn.taskeren.op.gt.utils.InfoDataBuilder
 import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.buildInfoData
 import cn.taskeren.op.gt.utils.extension.drawable
 import cn.taskeren.op.gt.utils.extension.slot
 import cn.taskeren.op.gt.utils.extension.text
+import cn.taskeren.op.translated
 import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_Hatch_DynamoMulti
 import com.gtnewhorizons.modularui.api.forge.ItemStackHandler
 import com.gtnewhorizons.modularui.api.screen.ModularWindow
@@ -39,9 +39,18 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 
 	companion object {
 		private val DESC = arrayOf(
-			"Generating Electric Energy from Multiblocks",
-			"Generates 1A ULV (8EU) by Default.",
-			"You can insert higher level ${InfoDataBuilder.BLUE}Dynamos ${InfoDataBuilder.GRAY}for better performance.",
+			// #tr ActiveTransformerRack_Tooltip_1
+			// #en Generating Electric Energy from Multiblocks
+			// #zh 能量的多方块输出
+			translated("ActiveTransformerRack_Tooltip_1"),
+			// #tr ActiveTransformerRack_Tooltip_2
+			// #en Generates 1A ULV by default.
+			// #zh 默认输出1安ULV。
+			translated("ActiveTransformerRack_Tooltip_2"),
+			// #tr ActiveTransformerRack_Tooltip_3
+			// #en You can insert higher level {BLUE}Dynamos {GRAY}for better performance.
+			// #zh 你可以放入更高级的{BLUE}动力仓{GRAY}取得更高的性能。
+			translated("ActiveTransformerRack_Tooltip_3"),
 			OP_Text.TOOLTIP_CREDIT,
 		)
 	}

@@ -3,6 +3,7 @@ package cn.taskeren.op.gt.single
 import cn.taskeren.op.gt.utils.InfoDataBuilder
 import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.extension.tier
+import cn.taskeren.op.translated
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.metatileentity.MetaTileEntity
@@ -18,9 +19,18 @@ class OP_BalancedOutputHatch : GT_MetaTileEntity_Hatch_Output {
 
 	constructor(aID: Int, aName: String, aNameRegional: String, aTier: Int) : super(aID, aName, aNameRegional, aTier) {
 		descriptionOverride = arrayOf(
-			"Fluid Output for Multiblocks",
-			"Capacity: ${InfoDataBuilder.tiered(tier)}${InfoDataBuilder.numberFormatted(capacity)}L",
-			"BOH will preserve half of its capacity fluid.",
+			// #tr BalancedOutputHatch_Tooltip_1
+			// #en Fluid Output for Multiblocks
+			// #zh 流体的多方块输出
+			translated("BalancedOutputHatch_Tooltip_1"),
+			// #tr BalancedOutputHatch_Tooltip_2
+			// #en Capacity: %s
+			// #zh 容量：%s
+			translated("BalancedOutputHatch_Tooltip_2", "${InfoDataBuilder.tiered(tier)}${InfoDataBuilder.numberFormatted(capacity)}L"),
+			// #tr BalancedOutputHatch_Tooltip_3
+			// #en Balanced Output Hatch will keep the fluids half of its capacity.
+			// #zh 平衡输出仓会保持它容量一半的液体
+			translated("BalancedOutputHatch_Tooltip_3"),
 			OP_Text.TOOLTIP_CREDIT_NOVELTY,
 		)
 	}

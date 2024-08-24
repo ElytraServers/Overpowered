@@ -3,13 +3,13 @@ package cn.taskeren.op.gt.single
 import cn.taskeren.op.OP
 import cn.taskeren.op.gt.init.OP_ItemList
 import cn.taskeren.op.gt.item.impl.InsuranceReceiptItemBehaviour
+import cn.taskeren.op.gt.utils.GTApi
 import cn.taskeren.op.gt.utils.OP_FakeRecipe
 import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.OP_Texture
 import cn.taskeren.op.gt.utils.extension.tier
 import cn.taskeren.op.insurance.InsuranceManager
 import cn.taskeren.op.translated
-import gregtech.api.GregTech_API
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
@@ -18,7 +18,6 @@ import gregtech.api.recipe.RecipeMap
 import gregtech.api.util.GT_RecipeBuilder
 import gregtech.api.util.GT_Utility
 import net.minecraft.item.Item
-import net.minecraft.item.ItemStack
 import java.util.UUID
 
 class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
@@ -75,10 +74,9 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 			if(InsuranceManager.hasExplodedMachine(uuid, metaId) &&
 				InsuranceManager.refundExplodedMachine(uuid, metaId)
 			) {
-				val refundItem = ItemStack(GregTech_API.sBlockMachines, 1, metaId)
+				val refundItem = GTApi.getMachineItemStack(metaId)
 				mOutputItems[0] = refundItem
 				item.stackSize -= 1
-				// calculateOverclockedNess(TierEU.ULV.toInt(), 300 * GT_RecipeBuilder.SECONDS)
 				// fixed time
 				mMaxProgresstime = 300 * GT_RecipeBuilder.SECONDS
 				return FOUND_AND_SUCCESSFULLY_USED_RECIPE

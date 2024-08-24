@@ -2,6 +2,7 @@ package cn.taskeren.op.insurance
 
 import cn.taskeren.op.OP
 import cn.taskeren.op.OP_Logger
+import cn.taskeren.op.gt.utils.GTApi
 import cn.taskeren.op.mc.util.sendTranslatedMessage
 import gregtech.api.GregTech_API
 import gregtech.api.metatileentity.BaseMetaTileEntity
@@ -22,7 +23,7 @@ import java.util.UUID
  */
 object InsuranceManager : OP_Logger {
 
-	fun onMachineExplode(bmte: BaseMetaTileEntity) {
+	fun onMachineExplode(bmte: BaseMetaTileEntity, level: Long) {
 		logger.info("{} exploded! owner: {}", bmte, bmte.ownerUuid)
 
 		if(OP.dev || OP.propertyDumpStackTraceOnMachineExplode) {
@@ -32,15 +33,18 @@ object InsuranceManager : OP_Logger {
 		val ownerPlayer =
 			MinecraftServer.getServer().configurationManager.playerEntityList.firstOrNull { it.uniqueID == bmte.ownerUuid }
 
+		val machineTile = GTApi.getMetaTileEntityById(bmte.metaTileID)
+
 		if(ownerPlayer != null) {
 			// #tr Insurance_Message_MachineExploded
-			// #en Your machine exploded at %s/%s/%s!
-			// #zh 你位于%s/%s/%s的机器爆炸了！
+			// #en Your machine {BLUE}%4$s {GRAY}exploded at %1$s/%2$s/%3$s!
+			// #zh 你位于%1$s/%2$s/%3$s的机器{BLUE}%4$s{GRAY}爆炸了！
 			ownerPlayer.sendTranslatedMessage(
 				"Insurance_Message_MachineExploded",
 				bmte.xCoord,
 				bmte.yCoord,
-				bmte.zCoord
+				bmte.zCoord,
+				machineTile?.localName ?: "Unknown",
 			)
 		} else {
 			logger.info("A machine exploded at ${bmte.xCoord}/${bmte.yCoord}/${bmte.zCoord} and his owner ${bmte.ownerName}(uuid=${bmte.ownerUuid}) was not found!")
@@ -72,7 +76,13 @@ object InsuranceManager : OP_Logger {
 		}
 
 		// cost 25 emeralds
-		if(GT_Utility.consumeItems(player, player.heldItem, Items.emerald, 25) || player.theItemInWorldManager.isCreative) {
+		if(GT_Utility.consumeItems(
+				player,
+				player.heldItem,
+				Items.emerald,
+				25
+			) || player.theItemInWorldManager.isCreative
+		) {
 			if(InsuranceWorldSavedData.get().removeInsuranceInfo(player.uniqueID, mId)) {
 				GT_Utility.addItemToPlayerInventory(player, ItemStack(GregTech_API.sBlockMachines, 1, mId))
 				// #tr Insurance_Message_Success

@@ -5,6 +5,7 @@ import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.extension.tier
 import cn.taskeren.op.gt.utils.extension.widget
 import cn.taskeren.op.mc.util.forEachCompoundIndexed
+import cn.taskeren.op.translated
 import com.gtnewhorizons.modularui.api.screen.ModularWindow
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext
 import com.gtnewhorizons.modularui.common.fluid.FluidStackTank
@@ -56,10 +57,22 @@ class OP_UniHatch : GT_MetaTileEntity_Hatch_InputBus, IDualInputHatch {
 		aTier,
 		getItemSlotSize(aTier) + 1, // additional 1 is for the virtual circuit
 		arrayOf(
-			"${InfoDataBuilder.GOLD}Item ${InfoDataBuilder.GRAY}and ${InfoDataBuilder.BLUE}Fluid ${InfoDataBuilder.GRAY}Input for Multiblocks",
-			"Item Slots: ${InfoDataBuilder.tiered(aTier)}${getItemSlotSize(aTier)}",
-			"Fluid Slots: ${InfoDataBuilder.tiered(aTier)}${getFluidSlotSize(aTier)}",
-			"Fluid Capacity: ${InfoDataBuilder.tiered(aTier)}${InfoDataBuilder.numberFormatted(getFluidCapacityPerSlot(aTier))}L",
+			// #tr UniHatch_Tooltip_1
+			// #en {GOLD}Item {GRAY}and {BLUE}Fluid {GRAY}Input for Multiblocks
+			// #zh {GOLD}物品{GRAY}和{BLUE}流体{GRAY}的多方块结构输入
+			translated("UniHatch_Tooltip_1"),
+			// #tr UniHatch_Tooltip_2
+			// #en Item Slots: %s
+			// #zh 物品栏位：%s
+			translated("UniHatch_Tooltip_2", "${InfoDataBuilder.tiered(aTier)}${getItemSlotSize(aTier)}"),
+			// #tr UniHatch_Tooltip_3
+			// #en Fluid Slots: %s
+			// #zh 流体栏位：%s
+			translated("UniHatch_Tooltip_3", "${InfoDataBuilder.tiered(aTier)}${getFluidSlotSize(aTier)}"),
+			// #tr UniHatch_Tooltip_4
+			// #en Fluid Capacity: %s
+			// #zh 流体容量：%s
+			translated("UniHatch_Tooltip_4", "${InfoDataBuilder.tiered(aTier)}${InfoDataBuilder.numberFormatted(getFluidCapacityPerSlot(aTier))}L"),
 			OP_Text.TOOLTIP_CREDIT_NOVELTY,
 		),
 	) {

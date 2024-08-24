@@ -1,6 +1,9 @@
 package cn.taskeren.op.gt.item.impl
 
+import cn.taskeren.op.gt.single.OP_InsuranceCounter
+import cn.taskeren.op.gt.utils.GTApi
 import cn.taskeren.op.gt.utils.InfoDataBuilder
+import cn.taskeren.op.insurance.InsuranceManager
 import cn.taskeren.op.mc.util.sendTranslatedMessage
 import cn.taskeren.op.translated
 import gregtech.api.GregTech_API
@@ -45,6 +48,8 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 		hitY: Float,
 		hitZ: Float
 	): Boolean {
+		val te = aWorld.getTileEntity(aX, aY, aZ)
+
 		if(getBoundMetaId(aStack) != null) {
 			// #tr Insurance_Message_ReceiptAlreadyBound
 			// #en It has already bound!
@@ -53,23 +58,35 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 			return true
 		}
 
-		val te = aWorld.getTileEntity(aX, aY, aZ)
 		if(te is CommonMetaTileEntity) {
-			if(aStack.stackSize > 1) {
-				val split = aStack.splitStack(1)
-				setBoundMetaId(split, te.metaTileID)
-				setOwnerUuid(split, aPlayer.uniqueID.toString())
-				GT_Utility.addItemToPlayerInventory(aPlayer, split)
-			} else {
-				setBoundMetaId(aStack, te.metaTileID)
-				setOwnerUuid(aStack, aPlayer.uniqueID.toString())
-			}
+			if(te.metaTileEntity is OP_InsuranceCounter) { // insurance counter: output explosion records
+				val list = InsuranceManager.getMyExplodedMachines(aPlayer.uniqueID)
+				val counts = list.groupingBy { it }.eachCount()
+				counts.forEach { mid, count ->
+					// #tr Insurance_OutputRecords
+					// #en - %sx %s (%s)
+					// #zh - %sx %s (%s)
+					// example: - 5x Input Hatch (LV) (123)
+					aPlayer.sendTranslatedMessage("Insurance_OutputRecords", count, GTApi.getMetaTileEntityById(mid)?.localName ?: "Unknown", mid)
+				}
+				return true
+			} else { // other machines: bind the receipt
+				if(aStack.stackSize > 1) {
+					val split = aStack.splitStack(1)
+					setBoundMetaId(split, te.metaTileID)
+					setOwnerUuid(split, aPlayer.uniqueID.toString())
+					GT_Utility.addItemToPlayerInventory(aPlayer, split)
+				} else {
+					setBoundMetaId(aStack, te.metaTileID)
+					setOwnerUuid(aStack, aPlayer.uniqueID.toString())
+				}
 
-			// #tr Insurance_Message_ReceiptBindingSuccess
-			// #en Insurance bound successfully!
-			// #zh 保险绑定成功！
-			if(!aWorld.isRemote) aPlayer.sendTranslatedMessage("Insurance_Message_ReceiptBindingSuccess")
-			return true
+				// #tr Insurance_Message_ReceiptBindingSuccess
+				// #en Insurance bound successfully!
+				// #zh 保险绑定成功！
+				if(!aWorld.isRemote) aPlayer.sendTranslatedMessage("Insurance_Message_ReceiptBindingSuccess")
+				return true
+			}
 		}
 		return super.onItemUse(aItem, aStack, aPlayer, aWorld, aX, aY, aZ, ordinalSide, hitX, hitY, hitZ)
 	}
