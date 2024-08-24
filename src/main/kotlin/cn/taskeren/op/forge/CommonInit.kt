@@ -15,7 +15,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.common.config.Configuration
 
-sealed class CommonInit : OP_Logger {
+open class CommonInit : OP_Logger {
 
 	open fun preInit(e: FMLPreInitializationEvent) {
 		// init config

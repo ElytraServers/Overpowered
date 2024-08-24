@@ -49,6 +49,10 @@ private static String applyColorFormatting(String str, String symbol = '&') {
         str = str.replace("${symbol}${code}", "§${code}")
     }
 
+    // error rendering auto-replace
+
+    str = str.replace('（', '(').replace('）', ')')
+
     return str
 }
 

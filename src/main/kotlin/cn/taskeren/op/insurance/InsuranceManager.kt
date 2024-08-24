@@ -3,7 +3,12 @@ package cn.taskeren.op.insurance
 import cn.taskeren.op.OP
 import cn.taskeren.op.OP_Logger
 import cn.taskeren.op.gt.utils.GTApi
+import cn.taskeren.op.mc.util.plainChat
 import cn.taskeren.op.mc.util.sendTranslatedMessage
+import cn.taskeren.op.mc.util.teleportChat
+import cn.taskeren.op.mc.util.translatedChat
+import cn.taskeren.op.mc.util.withGold
+import cn.taskeren.op.mc.util.withYellow
 import gregtech.api.GregTech_API
 import gregtech.api.metatileentity.BaseMetaTileEntity
 import gregtech.api.util.GT_Utility
@@ -27,7 +32,7 @@ object InsuranceManager : OP_Logger {
 		logger.info("{} exploded! owner: {}", bmte, bmte.ownerUuid)
 
 		if(OP.dev || OP.propertyDumpStackTraceOnMachineExplode) {
-			logger.info("The machine explosion stacktrace.", Throwable())
+			logger.info("The machine explosion stacktrace.", Throwable("Don't be panic! This is a machine explosion stacktrace!"))
 		}
 
 		val ownerPlayer =
@@ -37,15 +42,14 @@ object InsuranceManager : OP_Logger {
 
 		if(ownerPlayer != null) {
 			// #tr Insurance_Message_MachineExploded
-			// #en Your machine {BLUE}%4$s {GRAY}exploded at %1$s/%2$s/%3$s!
-			// #zh 你位于%1$s/%2$s/%3$s的机器{BLUE}%4$s{GRAY}爆炸了！
-			ownerPlayer.sendTranslatedMessage(
+			// #en Your machine %3$s exploded at %1$s(%2$s)!
+			// #zh 你位于%1$s（%2$s）的机器%3$s爆炸了！
+			ownerPlayer.addChatMessage(translatedChat(
 				"Insurance_Message_MachineExploded",
-				bmte.xCoord,
-				bmte.yCoord,
-				bmte.zCoord,
-				machineTile?.localName ?: "Unknown",
-			)
+				teleportChat(bmte.xCoord, bmte.yCoord, bmte.zCoord),
+				plainChat("${bmte.world.provider.dimensionId}").withYellow(),
+				translatedChat(GTApi.getMachineUnlocalizedNameOrUnknownMachine(bmte.metaTileID)).withGold()
+			))
 		} else {
 			logger.info("A machine exploded at ${bmte.xCoord}/${bmte.yCoord}/${bmte.zCoord} and his owner ${bmte.ownerName}(uuid=${bmte.ownerUuid}) was not found!")
 		}

@@ -9,6 +9,12 @@ import cn.taskeren.op.gt.utils.OP_Text
 import cn.taskeren.op.gt.utils.OP_Texture
 import cn.taskeren.op.gt.utils.extension.tier
 import cn.taskeren.op.insurance.InsuranceManager
+import cn.taskeren.op.mc.util.plainChat
+import cn.taskeren.op.mc.util.sendTranslatedMessage
+import cn.taskeren.op.mc.util.translatedChat
+import cn.taskeren.op.mc.util.withBlue
+import cn.taskeren.op.mc.util.withGold
+import cn.taskeren.op.mc.util.withGray
 import cn.taskeren.op.translated
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
@@ -17,6 +23,7 @@ import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachin
 import gregtech.api.recipe.RecipeMap
 import gregtech.api.util.GT_RecipeBuilder
 import gregtech.api.util.GT_Utility
+import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import java.util.UUID
 
@@ -32,6 +39,10 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 			// #en Refund your exploded machines back!
 			// #zh 将你爆炸的机器赔付回来！
 			translated("Insurance_Counter_Tooltip_2"),
+			// #tr Insurance_Counter_Tooltip_3
+			// #en Rightclick with {BLUE}Receipts {GRAY}to list the exploded machines.
+			// #zh 使用{BLUE}保险单{GRAY}右键来查看爆炸的机器。
+			translated("Insurance_Counter_Tooltip_3"),
 			OP_Text.TOOLTIP_CREDIT,
 		)
 	}
@@ -45,7 +56,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 		DESC,
 		1,
 		1,
-		*OP_Texture.SCANNER
+		*OP_Texture.getBasicMachineTextures("INSURANCE")
 	)
 
 	constructor(
@@ -53,7 +64,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 		aTier: Int,
 		aAmp: Int,
 		aDescription: Array<String>,
-		aTextures: Array<Array<Array<ITexture>>>
+		aTextures: Array<Array<Array<ITexture>>>?,
 	) : super(aName, aTier, aAmp, aDescription, aTextures, 1, 1)
 
 	override fun newMetaEntity(aTileEntity: IGregTechTileEntity?): IMetaTileEntity? {
@@ -106,6 +117,38 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 
 	override fun getRecipeMap(): RecipeMap<*>? {
 		return OP_FakeRecipe.FakeInsuranceCounterRecipe
+	}
+
+	override fun onRightclick(aBaseMetaTileEntity: IGregTechTileEntity, aPlayer: EntityPlayer): Boolean {
+		if(aBaseMetaTileEntity.isServerSide) {
+			val item = aPlayer.heldItem
+			if(GT_Utility.areStacksEqual(item, OP_ItemList.InsuranceReceipt.get(1), true)) {
+				val list = InsuranceManager.getMyExplodedMachines(aPlayer.uniqueID)
+				val counts = list.groupingBy { it }.eachCount()
+				counts.forEach { metaId, count ->
+					// #tr Insurance_OutputRecords
+					// #en - %s %s %s
+					// #zh - %s %s %s
+					aPlayer.sendTranslatedMessage(
+						"Insurance_OutputRecords",
+						plainChat("${count}x").withBlue(),
+						translatedChat(GTApi.getMachineUnlocalizedNameOrUnknownMachine(metaId)).withGold(),
+						plainChat("($metaId)").withGray()
+					)
+				}
+				return true
+			}
+		}
+
+		return super.onRightclick(aBaseMetaTileEntity, aPlayer)
+	}
+
+	override fun canHaveInsufficientEnergy(): Boolean {
+		return true
+	}
+
+	override fun stutterProcess() {
+		super.stutterProcess()
 	}
 
 }

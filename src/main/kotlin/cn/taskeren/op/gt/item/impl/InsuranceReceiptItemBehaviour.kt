@@ -1,12 +1,12 @@
 package cn.taskeren.op.gt.item.impl
 
-import cn.taskeren.op.gt.single.OP_InsuranceCounter
 import cn.taskeren.op.gt.utils.GTApi
-import cn.taskeren.op.gt.utils.InfoDataBuilder
-import cn.taskeren.op.insurance.InsuranceManager
+import cn.taskeren.op.mc.util.plainChat
 import cn.taskeren.op.mc.util.sendTranslatedMessage
+import cn.taskeren.op.mc.util.translatedChat
+import cn.taskeren.op.mc.util.withGold
+import cn.taskeren.op.mc.util.withGray
 import cn.taskeren.op.translated
-import gregtech.api.GregTech_API
 import gregtech.api.items.GT_MetaBase_Item
 import gregtech.api.metatileentity.CommonMetaTileEntity
 import gregtech.api.util.GT_Utility
@@ -14,7 +14,6 @@ import gregtech.common.items.behaviors.Behaviour_None
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
-import net.minecraft.util.StatCollector
 import net.minecraft.world.World
 
 object InsuranceReceiptItemBehaviour : Behaviour_None() {
@@ -46,7 +45,7 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 		ordinalSide: Int,
 		hitX: Float,
 		hitY: Float,
-		hitZ: Float
+		hitZ: Float,
 	): Boolean {
 		val te = aWorld.getTileEntity(aX, aY, aZ)
 
@@ -59,34 +58,21 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 		}
 
 		if(te is CommonMetaTileEntity) {
-			if(te.metaTileEntity is OP_InsuranceCounter) { // insurance counter: output explosion records
-				val list = InsuranceManager.getMyExplodedMachines(aPlayer.uniqueID)
-				val counts = list.groupingBy { it }.eachCount()
-				counts.forEach { mid, count ->
-					// #tr Insurance_OutputRecords
-					// #en - %sx %s (%s)
-					// #zh - %sx %s (%s)
-					// example: - 5x Input Hatch (LV) (123)
-					aPlayer.sendTranslatedMessage("Insurance_OutputRecords", count, GTApi.getMetaTileEntityById(mid)?.localName ?: "Unknown", mid)
-				}
-				return true
-			} else { // other machines: bind the receipt
-				if(aStack.stackSize > 1) {
-					val split = aStack.splitStack(1)
-					setBoundMetaId(split, te.metaTileID)
-					setOwnerUuid(split, aPlayer.uniqueID.toString())
-					GT_Utility.addItemToPlayerInventory(aPlayer, split)
-				} else {
-					setBoundMetaId(aStack, te.metaTileID)
-					setOwnerUuid(aStack, aPlayer.uniqueID.toString())
-				}
-
-				// #tr Insurance_Message_ReceiptBindingSuccess
-				// #en Insurance bound successfully!
-				// #zh 保险绑定成功！
-				if(!aWorld.isRemote) aPlayer.sendTranslatedMessage("Insurance_Message_ReceiptBindingSuccess")
-				return true
+			if(aStack.stackSize > 1) {
+				val split = aStack.splitStack(1)
+				setBoundMetaId(split, te.metaTileID)
+				setOwnerUuid(split, aPlayer.uniqueID.toString())
+				GT_Utility.addItemToPlayerInventory(aPlayer, split)
+			} else {
+				setBoundMetaId(aStack, te.metaTileID)
+				setOwnerUuid(aStack, aPlayer.uniqueID.toString())
 			}
+
+			// #tr Insurance_Message_ReceiptBindingSuccess
+			// #en Insurance bound successfully!
+			// #zh 保险绑定成功！
+			if(!aWorld.isRemote) aPlayer.sendTranslatedMessage("Insurance_Message_ReceiptBindingSuccess")
+			return true
 		}
 		return super.onItemUse(aItem, aStack, aPlayer, aWorld, aX, aY, aZ, ordinalSide, hitX, hitY, hitZ)
 	}
@@ -99,15 +85,14 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 		val metaId = getBoundMetaId(aStack)
 		if(metaId != null) {
 			// #tr Insurance_Receipt_Bound
-			// #en Bound MetaId: %s
-			// #zh 绑定的 MetaId：%s
-			tooltips.add(InfoDataBuilder.YELLOW + translated("Insurance_Receipt_Bound", metaId))
-			tooltips.add(InfoDataBuilder.YELLOW + StatCollector.translateToLocal(GregTech_API.METATILEENTITIES[metaId].localName))
+			// #en {YELLOW}Bound Machine: %s %s
+			// #zh {YELLOW}绑定的机器：%s %s
+			tooltips.add(translatedChat("Insurance_Receipt_Bound", translatedChat(GTApi.getMachineUnlocalizedNameOrUnknownMachine(metaId)).withGold(), plainChat("($metaId)").withGray()).formattedText)
 		} else {
 			// #tr Insurance_Receipt_Unbound
-			// #en Unbound
-			// #zh 未绑定
-			tooltips.add(InfoDataBuilder.YELLOW + translated("Insurance_Receipt_Unbound"))
+			// #en {YELLOW}Unbound
+			// #zh {YELLOW}未绑定
+			tooltips.add(translated("Insurance_Receipt_Unbound"))
 		}
 		return tooltips
 	}
