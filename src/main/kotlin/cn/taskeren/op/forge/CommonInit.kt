@@ -6,6 +6,7 @@ import cn.taskeren.op.gt.init.LazyScheduler
 import cn.taskeren.op.gt.init.OP_GTRegistrar
 import cn.taskeren.op.gt.item.OP_GeneratedItem
 import cn.taskeren.op.mc.command.CommandInsurance
+import cn.taskeren.op.mc.command.CommandOpTp
 import cn.taskeren.op.mc.event.WorldGameRuleManager
 import cpw.mods.fml.common.FMLCommonHandler
 import cpw.mods.fml.common.event.FMLInitializationEvent
@@ -43,6 +44,7 @@ open class CommonInit : OP_Logger {
 
 	open fun serverStarting(e: FMLServerStartingEvent) {
 		e.registerServerCommand(CommandInsurance)
+		e.registerServerCommand(CommandOpTp)
 	}
 
 }

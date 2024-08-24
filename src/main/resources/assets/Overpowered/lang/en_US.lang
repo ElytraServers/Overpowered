@@ -53,6 +53,7 @@ Insurance_Command_Help.3=§mYou'll need to have some emeralds to pay for the ins
 Insurance_Command_Help.4=/insurance clear - Clear all the insurance records.
 Insurance_Message_ExplodedMachineList=Your insurance covers %s machines.
 Insurance_Message_ExplodedMachineListCleared=Insurance records cleared
+commands.op_tp.usage=/optp <x> <y> <z> [dim = current dimesion] [player = myself] or /optp <dest_player> [player = myself]
 itemGroup.op_creativeTab=Overpowered!
 Command_InvalidArgument=Invalid argument: %s
 Overpowered_TeleportChat=%s/%s/%s

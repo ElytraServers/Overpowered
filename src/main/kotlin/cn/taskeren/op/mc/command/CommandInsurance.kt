@@ -18,9 +18,7 @@ object CommandInsurance : CommandBase() {
 
 	override fun getCommandUsage(sender: ICommandSender?): String = "/insurance help"
 
-	override fun getRequiredPermissionLevel(): Int {
-		return 4
-	}
+	override fun getRequiredPermissionLevel(): Int = 2
 
 	override fun processCommand(
 		sender: ICommandSender,
