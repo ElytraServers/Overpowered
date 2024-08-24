@@ -25,7 +25,10 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent
 	modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter",
 	name = "Overpowered",
 	version = Tags.VERSION,
-	dependencies = "required-after:gregtech;" // + "required-after:"
+	dependencies = "required-after:gregtech;" +
+		"required-after:miscutils;" + // gt++
+		"required-after:tectech;" + // TecTech
+		"required-after:dreamcraft;"
 )
 object OP_Mod : OP_Logger {
 

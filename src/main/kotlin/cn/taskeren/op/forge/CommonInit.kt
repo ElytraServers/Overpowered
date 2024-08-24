@@ -2,6 +2,7 @@ package cn.taskeren.op.forge
 
 import cn.taskeren.op.OP_Logger
 import cn.taskeren.op.forge.config.OP_Config
+import cn.taskeren.op.gt.init.LazyScheduler
 import cn.taskeren.op.gt.init.OP_GTRegistrar
 import cn.taskeren.op.gt.item.OP_GeneratedItem
 import cn.taskeren.op.mc.command.CommandInsurance
@@ -31,9 +32,13 @@ sealed class CommonInit : OP_Logger {
 		// registering event listeners
 		MinecraftForge.EVENT_BUS.register(WorldGameRuleManager)
 		FMLCommonHandler.instance().bus().register(WorldGameRuleManager)
+
+		LazyScheduler.runInit()
 	}
 
 	open fun postInit(e: FMLPostInitializationEvent) {
+
+		LazyScheduler.runPostInit()
 	}
 
 	open fun serverStarting(e: FMLServerStartingEvent) {

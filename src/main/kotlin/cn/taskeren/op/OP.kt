@@ -10,7 +10,7 @@ import net.minecraft.util.StatCollector
 object OP : OP_Logger {
 
 	fun t(key: String, vararg format: Any?): String {
-		return StatCollector.translateToLocalFormatted(key, format)
+		return StatCollector.translateToLocalFormatted(key, *format)
 	}
 
 	@JvmStatic

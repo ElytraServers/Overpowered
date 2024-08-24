@@ -1,5 +1,6 @@
 package cn.taskeren.op.gt
 
+import cn.taskeren.op.gt.init.LazyScheduler
 import cn.taskeren.op.mc.OP_CreativeTab
 import gregtech.api.enums.GT_Values
 import gregtech.api.interfaces.IItemContainer
@@ -34,9 +35,13 @@ fun IdItemContainer.registerItem(block: (id: Int) -> ItemStack) = apply {
 }
 
 fun IdItemContainer.addRecipe(recipeMap: IRecipeMap, block: GT_RecipeBuilder.(defaultItem: ItemStack) -> Unit) = apply {
-	GT_Values.RA.stdBuilder().apply { block(get(1)) }.addTo(recipeMap)
+	LazyScheduler.schedulePostInit {
+		GT_Values.RA.stdBuilder().apply { block(get(1)) }.addTo(recipeMap)
+	}
 }
 
 fun IdItemContainer.addRecipeSimple(block: (defaultItem: ItemStack) -> Unit) = apply {
-	block(get(1))
+	LazyScheduler.schedulePostInit {
+		block(get(1))
+	}
 }

@@ -2,6 +2,10 @@ package cn.taskeren.op.gt.init
 
 import cn.taskeren.op.gt.addRecipe
 import cn.taskeren.op.gt.addRecipeSimple
+import cn.taskeren.op.gt.item.OP_GeneratedItem
+import cn.taskeren.op.gt.item.impl.ActiveTransformerExplosionCoreItemBehaviour
+import cn.taskeren.op.gt.item.impl.InsuranceReceiptItemBehaviour
+import cn.taskeren.op.gt.registerItem
 import cn.taskeren.op.gt.registerMachine
 import cn.taskeren.op.gt.single.OP_ActiveTransformerRack
 import cn.taskeren.op.gt.single.OP_BalancedOutputHatch
@@ -11,7 +15,8 @@ import cn.taskeren.op.gt.single.OP_OverpowerMachine
 import cn.taskeren.op.gt.single.OP_UniHatch
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder.X
-import gregtech.api.enums.GT_Values
+import com.github.technus.tectech.thing.CustomItemList
+import com.github.technus.tectech.thing.casing.TT_Container_Casings
 import gregtech.api.enums.ItemList
 import gregtech.api.enums.Materials
 import gregtech.api.enums.TierEU
@@ -19,11 +24,52 @@ import gregtech.api.recipe.RecipeMaps
 import gregtech.api.util.GT_ModHandler
 import gregtech.api.util.GT_RecipeBuilder
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList
+import net.minecraft.item.ItemStack
+import com.dreammaster.gthandler.CustomItemList as DreamItemList
 
 object OP_GTRegistrar {
 
 	fun registerAllMachines() {
+		registerSimpleItems()
 		registerSingleMachines()
+	}
+
+	private fun registerSimpleItems() = with(OP_GeneratedItem) {
+		OP_ItemList.DyingBioChip.registerItem {
+			// #tr gt.metaitem.op.32001.name
+			// #en Dying Bio Chip
+
+			// #tr gt.metaitem.op.32001.tooltip
+			// #en Squeezed Living Bio Chip
+
+			addItem(it, "Dying Bio Chip", "Squeezed Living Bio Chip")
+		}
+		OP_ItemList.CertifiedElectrician.registerItem {
+			// #tr gt.metaitem.op.32002.name
+			// #en Certified Electrician
+			// #zh 电工资格证
+			// #tr gt.metaitem.op.32002.tooltip
+			// #en Proof of your qualifications on Electrical Engineering
+			// #zh 证明你在电气工程的资历
+			addItem(it, "Certified Electrician", "Proof of your qualifications on Electrical Engineering")
+		}
+		OP_ItemList.InsuranceReceipt.registerItem {
+			// #tr gt.metaitem.op.32003.name
+			// #en Insurance Receipt
+			// #zh 保险单
+			addItem(it, "Insurance Receipt", "", InsuranceReceiptItemBehaviour)
+		}
+		OP_ItemList.ActiveTransformerExplosionCore.registerItem {
+			// #tr gt.metaitem.op.32004.name
+			// #en Active Transformer Explosion Core
+			// #zh 有源变压器爆炸核心
+			addItem(it, "Active Transformer Explosion Core", "", ActiveTransformerExplosionCoreItemBehaviour)
+		}.addRecipe(RecipeMaps.hammerRecipes) {
+			itemInputs(CustomItemList.Machine_Multi_Transformer.get(1)) // active transformer
+			itemOutputs(it.copy().also { it.stackSize = 8 })
+			duration(8 * GT_RecipeBuilder.SECONDS)
+			eut(TierEU.RECIPE_LV)
+		}
 	}
 
 	private fun registerSingleMachines() {
@@ -40,6 +86,11 @@ object OP_GTRegistrar {
 		// #tw 有源變壓器機械架
 		OP_MachineItemList.ActiveTransformerRack.registerMachine {
 			OP_ActiveTransformerRack(it, "active_transformer_rack", "Active Transformer Rack", 9)
+		}.addRecipe(RecipeMaps.assemblerRecipes) {
+			itemInputs(ItemStack(TT_Container_Casings.sBlockCasingsTT, 4), DreamItemList.HighEnergyFlowCircuit.get(1))
+			itemOutputs(it.copy().also { it.stackSize = 4 })
+			duration(8 * GT_RecipeBuilder.SECONDS)
+			eut(TierEU.RECIPE_LuV)
 		}
 
 		// #tr gt.blockmachines.insurance_counter.name
@@ -48,7 +99,24 @@ object OP_GTRegistrar {
 		OP_MachineItemList.InsuranceCounter.registerMachine {
 			OP_InsuranceCounter(it, "insurance_counter", "Galactic Inc. Insurance Counter", 1)
 		}.addRecipeSimple {
-			GT_ModHandler.addCraftingRecipe(it, PatternRecipeBuilder.format(1, arrayOf("WCW", "XHX", "WCW", 'W', X.WIRE, 'C', X.CIRCUIT, 'X', GregtechItemList.TransmissionComponent_LV, 'H', X.HULL)))
+			with(PatternRecipeBuilder) {
+				GT_ModHandler.addCraftingRecipe(
+					it,
+					arrayOf(
+						"WCW",
+						"XHX",
+						"WCW",
+						'W',
+						X.WIRE,
+						'C',
+						X.CIRCUIT,
+						'X',
+						GregtechItemList.TransmissionComponent_LV.get(1),
+						'H',
+						X.HULL
+					).withTier(1)
+				)
+			}
 		}
 
 		// region UniHatch
@@ -154,7 +222,11 @@ object OP_GTRegistrar {
 		OP_MachineItemList.BalancedOutputHatch_HV.registerMachine {
 			OP_BalancedOutputHatch(it, "balanced_output_hatch_hv", "Balanced Output Hatch HV", 3)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
-			itemInputs(ItemList.Hatch_Output_HV.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemInputs(
+				ItemList.Hatch_Output_HV.get(1),
+				ItemList.Cover_FluidStorageMonitor.get(1),
+				ItemList.Cover_Controller.get(1)
+			)
 			itemOutputs(it)
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
@@ -165,7 +237,11 @@ object OP_GTRegistrar {
 		OP_MachineItemList.BalancedOutputHatch_LuV.registerMachine {
 			OP_BalancedOutputHatch(it, "balanced_output_hatch_luv", "Balanced Output Hatch LuV", 6)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
-			itemInputs(ItemList.Hatch_Output_LuV.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemInputs(
+				ItemList.Hatch_Output_LuV.get(1),
+				ItemList.Cover_FluidStorageMonitor.get(1),
+				ItemList.Cover_Controller.get(1)
+			)
 			itemOutputs(it)
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
@@ -176,7 +252,11 @@ object OP_GTRegistrar {
 		OP_MachineItemList.BalancedOutputHatch_UHV.registerMachine {
 			OP_BalancedOutputHatch(it, "balanced_output_hatch_uhv", "Balanced Output Hatch HV", 9)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
-			itemInputs(ItemList.Hatch_Output_MAX.get(1), ItemList.Cover_FluidStorageMonitor.get(1), ItemList.Cover_Controller.get(1))
+			itemInputs(
+				ItemList.Hatch_Output_MAX.get(1),
+				ItemList.Cover_FluidStorageMonitor.get(1),
+				ItemList.Cover_Controller.get(1)
+			)
 			itemOutputs(it)
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
@@ -193,8 +273,4 @@ object OP_GTRegistrar {
 		}
 	}
 
-}
-
-internal fun addRecipe(block: GT_RecipeBuilder.() -> Unit) {
-	GT_Values.RA.stdBuilder().apply(block)
 }

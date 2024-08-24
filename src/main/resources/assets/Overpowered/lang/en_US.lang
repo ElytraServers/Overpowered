@@ -1,6 +1,12 @@
 # This file is auto-generated. Don't modify!
 
 Overpowered_Author_Taskeren=§6§lTaskeren
+gt.metaitem.op.32001.name=Dying Bio Chip
+gt.metaitem.op.32001.tooltip=Squeezed Living Bio Chip
+gt.metaitem.op.32002.name=Certified Electrician
+gt.metaitem.op.32002.tooltip=Proof of your qualifications on Electrical Engineering
+gt.metaitem.op.32003.name=Insurance Receipt
+gt.metaitem.op.32004.name=Active Transformer Explosion Core
 gt.blockmachines.overpower_machine.name=Incredible Malicious Machine Overpowering System
 gt.blockmachines.active_transformer_rack.name=Active Transformer Rack
 gt.blockmachines.insurance_counter.name=Galactic Inc. Insurance Counter
@@ -20,12 +26,6 @@ Insurance_Message_ReceiptAlreadyBound=It has already bound!
 Insurance_Message_ReceiptBindingSuccess=Insurance bound successfully!
 Insurance_Receipt_Bound=Bound MetaId: %s
 Insurance_Receipt_Unbound=Unbound
-gt.metaitem.op.32001.name=Dying Bio Chip
-gt.metaitem.op.32001.tooltip=Squeezed Living Bio Chip
-gt.metaitem.op.32002.name=Certified Electrician
-gt.metaitem.op.32002.tooltip=Proof of your qualifications on Electrical Engineering
-gt.metaitem.op.32003.name=Insurance Receipt
-gt.metaitem.op.32004.name=Active Transformer Explosion Core
 Insurance_Counter_Tooltip_1=Insurance Counter
 Insurance_Counter_Tooltip_2=Refund your exploded machines back!
 op.recipe.insurance_counter=Insurance Counter
