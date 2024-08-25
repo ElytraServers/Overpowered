@@ -1,10 +1,9 @@
 {
   "required": true,
   "package": "cn.taskeren.op.mixin",
+  "plugin": "cn.taskeren.op.mixin_plugin.OP_MixinPlugin",
   "mixins": [
-    "Insurance_BaseMetaTileEntity_Mixin"
   ],
   "client": [
-    "CrashProof_ModularGui_Mixin"
   ]
 }
