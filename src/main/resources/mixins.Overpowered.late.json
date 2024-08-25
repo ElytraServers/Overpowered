@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8.3-GTNH",
-  "package": "cn.taskeren.op.mixin",
+  "package": "cn.taskeren.op.mixin.late",
   "refmap": "mixins.Overpowered.refmap.json",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8"

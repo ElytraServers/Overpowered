@@ -21,7 +21,7 @@ import java.util.UUID
 /**
  * Everything about Insurance is here.
  *
- * All the machines that explode will be registered here, from [cn.taskeren.op.mixin.Insurance_BaseMetaTileEntity_Mixin].
+ * All the machines that explode will be registered here, from [cn.taskeren.op.mixin.late.Insurance_BaseMetaTileEntity_Mixin].
  * Players will have chances to refund their machines back by costing a bunch of resources like Emeralds.
  *
  * Players can see their exploded machines using command `/insurance list`. The listed numbers are the MetaTileEntity IDs.

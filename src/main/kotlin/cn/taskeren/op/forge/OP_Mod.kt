@@ -44,7 +44,7 @@ object OP_Mod : OP_Logger {
 			// #en &6&lTaskeren
 			// #zh &6&lTaskeren（楓）
 			// #tw &6&lTaskeren（楓）
-			logger.info("Overpowering " + t("Overpowered_Author_Taskeren") + " !")
+			logger.info("Overpowering ${t("Overpowered_Author_Taskeren")} ${Tags.VERSION}!")
 		}
 	}
 
