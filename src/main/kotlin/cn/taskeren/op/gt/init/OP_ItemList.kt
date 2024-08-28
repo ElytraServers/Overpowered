@@ -14,10 +14,14 @@ import net.minecraft.item.ItemStack
 
 enum class OP_ItemList(override val id: Short) : IdItemContainer, OP_Logger {
 
+	// OP_GeneratedItem
 	DyingBioChip(1),
 	CertifiedElectrician(2),
 	InsuranceReceipt(3),
 	ActiveTransformerExplosionCore(4),
+
+	// OP_GeneratedAEUpgradeItem
+	ProgrammedUpgrade(0),
 
 	;
 

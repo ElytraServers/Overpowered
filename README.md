@@ -54,3 +54,7 @@ Check out [here](https://github.com/GTNewHorizons/RetroFuturaGradle/issues/51#is
 - `UNDERLINE`
 - `ITALIC`
 - `RESET`
+
+### Credits
+
+- Texture of Programmed Upgrade is from [Neeve's AE2: Extended Life Additions (NAE2)](https://github.com/AE2-UEL/NAE2)

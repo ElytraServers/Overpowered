@@ -40,8 +40,10 @@ fun IdItemContainer.addRecipe(recipeMap: IRecipeMap, block: GT_RecipeBuilder.(de
 	}
 }
 
-fun IdItemContainer.addRecipeSimple(block: (defaultItem: ItemStack) -> Unit) = apply {
+fun IdItemContainer.useItemStackPostInit(block: (defaultItem: ItemStack) -> Unit) = apply {
 	LazyScheduler.schedulePostInit {
 		block(get(1))
 	}
 }
+
+fun IdItemContainer.addRecipeSimple(block: (defaultItem: ItemStack) -> Unit) = useItemStackPostInit(block)

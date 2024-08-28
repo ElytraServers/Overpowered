@@ -26,9 +26,15 @@ class OP_LateMixin : ILateMixinLoader {
 		val mixinClasses = mutableListOf<String>()
 		if("gregtech" in loadedMods) {
 			mixinClasses += "Insurance_BaseMetaTileEntity_Mixin"
+			mixinClasses += "GTApi_GregTech_API_Mixin"
 		}
 		if("modularui" in loadedMods) {
 			mixinClasses += "CrashProof_ModularGui_Mixin"
+		}
+		if("appliedenergistics2" in loadedMods) {
+			mixinClasses += "ProInterface_DualityInterface_Mixin"
+			mixinClasses += "AdditionalAE_Upgrades_Mixin"
+			mixinClasses += "AdditionalAE_UpgradeInventory_Mixin"
 		}
 
 		mixinClasses.forEach { logger.info("Applied Mixin: {}", it) }

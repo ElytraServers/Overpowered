@@ -1,7 +1,10 @@
 package cn.taskeren.op.gt.init
 
+import appeng.api.AEApi
+import cn.taskeren.op.ae.OP_AEUpgrades
 import cn.taskeren.op.gt.addRecipe
 import cn.taskeren.op.gt.addRecipeSimple
+import cn.taskeren.op.gt.item.OP_GeneratedAEUpgradeItem
 import cn.taskeren.op.gt.item.OP_GeneratedItem
 import cn.taskeren.op.gt.item.impl.ActiveTransformerExplosionCoreItemBehaviour
 import cn.taskeren.op.gt.item.impl.InsuranceReceiptItemBehaviour
@@ -13,6 +16,7 @@ import cn.taskeren.op.gt.single.OP_DebugEnergyHatch
 import cn.taskeren.op.gt.single.OP_InsuranceCounter
 import cn.taskeren.op.gt.single.OP_OverpowerMachine
 import cn.taskeren.op.gt.single.OP_UniHatch
+import cn.taskeren.op.gt.useItemStackPostInit
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder.X
 import com.github.technus.tectech.thing.CustomItemList
@@ -23,6 +27,7 @@ import gregtech.api.enums.TierEU
 import gregtech.api.recipe.RecipeMaps
 import gregtech.api.util.GT_ModHandler
 import gregtech.api.util.GT_RecipeBuilder
+import gregtech.api.util.GT_Utility
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList
 import net.minecraft.item.ItemStack
 import com.dreammaster.gthandler.CustomItemList as DreamItemList
@@ -31,6 +36,7 @@ object OP_GTRegistrar {
 
 	fun registerAllMachines() {
 		registerSimpleItems()
+		registerAdditionalAEUpgrades()
 		registerSingleMachines()
 	}
 
@@ -57,18 +63,42 @@ object OP_GTRegistrar {
 			// #tr gt.metaitem.op.32003.name
 			// #en Insurance Receipt
 			// #zh 保险单
-			addItem(it, "Insurance Receipt", "", InsuranceReceiptItemBehaviour)
+			addItem(it, "Insurance Receipt", null, InsuranceReceiptItemBehaviour)
 		}
 		OP_ItemList.ActiveTransformerExplosionCore.registerItem {
 			// #tr gt.metaitem.op.32004.name
 			// #en Active Transformer Explosion Core
 			// #zh 有源变压器爆炸核心
-			addItem(it, "Active Transformer Explosion Core", "", ActiveTransformerExplosionCoreItemBehaviour)
+			addItem(it, "Active Transformer Explosion Core", null, ActiveTransformerExplosionCoreItemBehaviour)
 		}.addRecipe(RecipeMaps.hammerRecipes) {
 			itemInputs(CustomItemList.Machine_Multi_Transformer.get(1)) // active transformer
 			itemOutputs(it.copy().also { it.stackSize = 8 })
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LV)
+		}
+	}
+
+	private fun registerAdditionalAEUpgrades() = with(OP_GeneratedAEUpgradeItem) {
+		OP_ItemList.ProgrammedUpgrade.registerItem {
+			// #tr gt.metaitem.op.ae.32000.name
+			// #en Programmed Upgrade
+			// #zh 编程卡
+			// #tr gt.metaitem.op.ae.32000.tooltip
+			// #en Adjust Configuration Circuit by Pattern
+			// #zh 根据样板调整虚拟电路板
+			addItem(it, "Programmed Upgrade", "Adjust Configuration Circuit by Pattern")
+		}.useItemStackPostInit {
+			registerUpgrade(it, OP_AEUpgrades.programmedUpgrade)
+		}.addRecipeSimple {
+			val definitions = AEApi.instance().definitions()
+			GT_ModHandler.addCraftingRecipe(
+				it,
+				arrayOf(
+					"BC",
+					'B', definitions.materials().basicCard().maybeStack(1).get(),
+					'C', GT_Utility.getIntegratedCircuit(0)
+				)
+			)
 		}
 	}
 

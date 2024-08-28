@@ -1,6 +1,7 @@
 package cn.taskeren.op.forge
 
 import cn.taskeren.op.OP_Logger
+import cn.taskeren.op.ae.OP_AEUpgrades
 import cn.taskeren.op.forge.config.OP_Config
 import cn.taskeren.op.gt.init.LazyScheduler
 import cn.taskeren.op.gt.init.OP_GTRegistrar
@@ -38,6 +39,7 @@ open class CommonInit : OP_Logger {
 	}
 
 	open fun postInit(e: FMLPostInitializationEvent) {
+		OP_AEUpgrades.init()
 
 		LazyScheduler.runPostInit()
 	}

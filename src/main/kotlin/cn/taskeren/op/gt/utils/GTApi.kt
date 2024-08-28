@@ -1,6 +1,8 @@
 package cn.taskeren.op.gt.utils
 
+import cn.taskeren.op.utils.MixinAccessorBridge
 import gregtech.api.GregTech_API
+import gregtech.api.util.GT_Utility
 import net.minecraft.item.ItemStack
 
 object GTApi {
@@ -25,5 +27,11 @@ object GTApi {
 	}
 
 	fun getMetaTileEntityById(metaId: Int) = GregTech_API.METATILEENTITIES.getOrNull(metaId)
+
+	val configurationCircuits: Collection<ItemStack>
+		get() = MixinAccessorBridge.getRealConfigurationList().values()
+
+	fun isConfigurationCircuit(stack: ItemStack): Boolean =
+		configurationCircuits.any { GT_Utility.areStacksEqual(stack, it) }
 
 }

@@ -28,7 +28,8 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent
 	dependencies = "required-after:gregtech;" +
 		"required-after:miscutils;" + // gt++
 		"required-after:tectech;" + // TecTech
-		"required-after:dreamcraft;"
+		"required-after:dreamcraft;" +
+		"required-after:appliedenergistics2;" // AE2
 )
 object OP_Mod : OP_Logger {
 
