@@ -19,6 +19,7 @@ enum class OP_ItemList(override val id: Short) : IdItemContainer, OP_Logger {
 	CertifiedElectrician(2),
 	InsuranceReceipt(3),
 	ActiveTransformerExplosionCore(4),
+	DebugItem(5),
 
 	// OP_GeneratedAEUpgradeItem
 	ProgrammedUpgrade(0),

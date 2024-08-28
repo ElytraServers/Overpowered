@@ -7,6 +7,7 @@ import cn.taskeren.op.gt.addRecipeSimple
 import cn.taskeren.op.gt.item.OP_GeneratedAEUpgradeItem
 import cn.taskeren.op.gt.item.OP_GeneratedItem
 import cn.taskeren.op.gt.item.impl.ActiveTransformerExplosionCoreItemBehaviour
+import cn.taskeren.op.gt.item.impl.DebugItemBehaviour
 import cn.taskeren.op.gt.item.impl.InsuranceReceiptItemBehaviour
 import cn.taskeren.op.gt.registerItem
 import cn.taskeren.op.gt.registerMachine
@@ -75,6 +76,12 @@ object OP_GTRegistrar {
 			itemOutputs(it.copy().also { it.stackSize = 8 })
 			duration(8 * GT_RecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LV)
+		}
+		OP_ItemList.DebugItem.registerItem {
+			// #tr gt.metaitem.op.32005.name
+			// #en Overpowered Debug Item
+			// #zh Overpowered 侦错物品
+			addItem(it, "Overpowered Debug Item", null, DebugItemBehaviour)
 		}
 	}
 
