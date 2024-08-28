@@ -35,6 +35,10 @@ class OP_LateMixin : ILateMixinLoader {
 			mixinClasses += "ProInterface_DualityInterface_Mixin"
 			mixinClasses += "AdditionalAE_Upgrades_Mixin"
 			mixinClasses += "AdditionalAE_UpgradeInventory_Mixin"
+
+			if("AWWayofTime" in loadedMods) {
+				mixinClasses += "AEBloodMagicCompat_DualityInterface_Mixin"
+			}
 		}
 
 		mixinClasses.forEach { logger.info("Applied Mixin: {}", it) }
