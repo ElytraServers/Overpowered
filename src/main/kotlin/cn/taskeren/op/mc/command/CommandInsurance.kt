@@ -72,6 +72,7 @@ object CommandInsurance : CommandBase() {
 					val metaId = mArgs.removeFirstOrNull()?.toIntOrNull()
 					if(metaId == null) return sender.sendInvalidArgument("mId")
 
+					@Suppress("DEPRECATION") // and this method call is also the old design, lol
 					InsuranceManager.refundExplodedMachine(sender, metaId)
 				} else {
 					sender.sendMessage("Console is not allowed!")
