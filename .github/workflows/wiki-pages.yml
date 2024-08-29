@@ -3,7 +3,7 @@ name: Wiki Pages Deployment
 on:
   push:
     branches: [ master ]
-    paths: [ "op_docs" ]
+    paths: [ "op_docs/**" ]
 
   workflow_dispatch:
 

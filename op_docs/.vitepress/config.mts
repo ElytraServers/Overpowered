@@ -1,9 +1,11 @@
-import { defineConfig } from 'vitepress'
+import {defineConfig} from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Overpowered Wiki",
   description: "Overpowered Documentation and Description",
+
+  base: "/Overpowered/",
 
   locales: {
     root: {
