@@ -5,8 +5,6 @@ export default defineConfig({
   title: "Overpowered Wiki",
   description: "Overpowered Documentation and Description",
 
-  base: "/Overpowered/",
-
   locales: {
     root: {
       label: "简体中文",
