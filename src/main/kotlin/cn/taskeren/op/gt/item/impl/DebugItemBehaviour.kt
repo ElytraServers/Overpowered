@@ -28,6 +28,7 @@ object DebugItemBehaviour : Behaviour_None() {
 			val tile = aWorld.getTileEntity(aX, aY, aZ)
 			if(tile is CommonMetaTileEntity) {
 				val metaTile = tile.metaTileEntity
+
 				if(metaTile is IVoltageChanceBonus) {
 					// #tr OP_Debug_VoltageChanceBonus_1
 					// #en Voltage Chance Bonus: %.2f%% (volt tier: %s, base volt tier: %s)

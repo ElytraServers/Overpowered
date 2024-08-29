@@ -7,6 +7,8 @@ import org.intellij.lang.annotations.MagicConstant;
  * The machines with voltage tier chance bonus.
  * <p>
  * The higher tier, the more bonus.
+ *
+ * @see cn.taskeren.op.gt.recipe_chance_bonus.ChanceBonusManager
  */
 public interface IVoltageChanceBonus {
 

@@ -2,8 +2,12 @@ package cn.taskeren.op.gt.utils
 
 import cn.taskeren.op.utils.MixinAccessorBridge
 import gregtech.api.GregTech_API
+import gregtech.api.enums.GTVoltageIndex
+import gregtech.api.enums.GT_Values
+import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.util.GT_Utility
 import net.minecraft.item.ItemStack
+import org.intellij.lang.annotations.MagicConstant
 
 object GTApi {
 
@@ -14,9 +18,13 @@ object GTApi {
 		return ItemStack(MachineBlock, 1, metaId)
 	}
 
+	fun getMachineUnlocalizedName(mte: IMetaTileEntity): String {
+		return "gt.blockmachines.${mte.metaName}.name"
+	}
+
 	fun getMachineUnlocalizedName(metaId: Int): String? {
 		val mte = getMetaTileEntityById(metaId) ?: return null
-		return "gt.blockmachines.${mte.metaName}.name"
+		return getMachineUnlocalizedName(mte)
 	}
 
 	fun getMachineUnlocalizedNameOrUnknownMachine(metaId: Int): String {
@@ -33,5 +41,15 @@ object GTApi {
 
 	fun isConfigurationCircuit(stack: ItemStack): Boolean =
 		configurationCircuits.any { GT_Utility.areStacksEqual(stack, it) }
+
+	/**
+	 * @see GT_Utility.getTier
+	 */
+	@MagicConstant(valuesFromClass = GTVoltageIndex::class)
+	fun getVoltagePracticalTier(eut: Long): Int {
+		var i = -1
+		while(++i < GT_Values.VP.size) if(eut <= GT_Values.VP[i]) return i
+		return GT_Values.VP.size - 1
+	}
 
 }

@@ -58,6 +58,10 @@ Insurance_Command_Help.4=/insurance clear - Clear all the insurance records.
 Insurance_Message_ExplodedMachineList=Your insurance covers %s machines.
 Insurance_Message_ExplodedMachineListCleared=Insurance records cleared
 commands.op_tp.usage=/optp <x> <y> <z> [dim = current dimesion] [player = myself] or /optp <dest_player> [player = myself]
+OP_DarkArts_LogMachine_Single=- Machine %s %s: %s
+OP_DarkArts_LogMachine_Multi_Header=- Multi Machine Class: %s
+OP_DarkArts_LogMachine_Multi_Entry=* %s %s
+OP_DarkArts_LogMachine_NotMachine=- Non-Machine: %s
 itemGroup.op_creativeTab=Overpowered!
 Command_InvalidArgument=Invalid argument: %s
 Overpowered_TeleportChat=%s/%s/%s

@@ -56,6 +56,10 @@ Insurance_Command_Help.4=/insurance clear - 清除所有保险记录。
 Insurance_Message_ExplodedMachineList=你的保险覆盖了%s台机器。
 Insurance_Message_ExplodedMachineListCleared=已清除保险记录
 commands.op_tp.usage=/optp <x> <y> <z> [dim = 当前维度] [player = 自身] or /optp <dest_player> [player = 自身]
+OP_DarkArts_LogMachine_Single=- 机器 %s %s: %s
+OP_DarkArts_LogMachine_Multi_Header=- 多机器 Class: %s
+OP_DarkArts_LogMachine_Multi_Entry=* %s %s
+OP_DarkArts_LogMachine_NotMachine=- 非机器：%s
 itemGroup.op_creativeTab=Overpowered!
 Command_InvalidArgument=无效参数：%s
 Overpowered_TeleportChat=%s/%s/%s

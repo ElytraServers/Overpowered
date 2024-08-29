@@ -29,7 +29,6 @@ class OP_LateMixin : ILateMixinLoader {
 			mixinClasses += "GTApi_GregTech_API_Mixin"
 
 			mixinClasses += "VoltageChanceBonus_GT_ParallelHelper_Mixin"
-			mixinClasses += "VoltageChanceBonus_GregtechMeta_MultiBlockBase_Mixin"
 		}
 		if("modularui" in loadedMods) {
 			mixinClasses += "CrashProof_ModularGui_Mixin"

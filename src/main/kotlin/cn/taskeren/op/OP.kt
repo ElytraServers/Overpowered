@@ -25,6 +25,12 @@ object OP : OP_Logger {
 	fun isMachineBlock(block: Block) = block == gtMachineBlock
 	fun isMachineBlock(item: Item) = isMachineBlock(Block.getBlockFromItem(item))
 
+	/**
+	 * @return true if the chance bonus is accumulative, which stacks with the previous chance multiplier.
+	 * @see cn.taskeren.op.mixin.late.VoltageChanceBonus_GT_ParallelHelper_Mixin
+	 */
+	val accumulativeChanceBonus get() = false
+
 }
 
 internal fun translated(key: String, vararg format: Any?): String = OP.t(key, *format)
