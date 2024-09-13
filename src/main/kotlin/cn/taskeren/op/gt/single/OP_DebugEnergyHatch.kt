@@ -41,7 +41,7 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 
 	constructor(aID: Int, aName: String, aNameRegional: String) : super(aID, aName, aNameRegional, 12, DESC)
 
-	constructor(aName: String, aDescription: Array<String>, aTextures: Array<Array<Array<ITexture>>>) : super(
+	constructor(aName: String, aDescription: Array<String>, aTextures: Array<Array<Array<ITexture>>>?) : super(
 		aName,
 		12,
 		aDescription,
