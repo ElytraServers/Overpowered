@@ -35,7 +35,7 @@ class OP_BalancedOutputHatch : GT_MetaTileEntity_Hatch_Output {
 		)
 	}
 
-	constructor(aName: String, aTier: Int, aDescriptionArray: Array<String>, aTextures: Array<Array<Array<ITexture>>>) : super(aName, aTier, aDescriptionArray, aTextures) {
+	constructor(aName: String, aTier: Int, aDescriptionArray: Array<String>, aTextures: Array<Array<Array<ITexture>>>?) : super(aName, aTier, aDescriptionArray, aTextures) {
 		descriptionOverride = aDescriptionArray
 	}
 
