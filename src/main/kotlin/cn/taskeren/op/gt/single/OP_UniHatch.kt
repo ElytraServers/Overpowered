@@ -84,7 +84,7 @@ class OP_UniHatch : GT_MetaTileEntity_Hatch_InputBus, IDualInputHatch {
 		aName: String,
 		aTier: Int,
 		aDescription: Array<String>,
-		aTextures: Array<Array<Array<ITexture>>>,
+		aTextures: Array<Array<Array<ITexture>>>?,
 	) : super(aName, aTier, getItemSlotSize(aTier) + 1, aDescription, aTextures) {
 		fluidStacks = arrayOfNulls(getFluidSlotSize(aTier))
 		fluidStackTanks = arrayOfNulls(getFluidSlotSize(aTier))
