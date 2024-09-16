@@ -67,7 +67,7 @@ object ChanceBonusManager : OP_Logger {
 		addLastBonusProvider { machine, recipeTier, prevBonus ->
 			when(machine) {
 				is GregtechMeta_MultiBlockBase<*> -> {
-					val minTierEnergyHatch = machine.mAllEnergyHatches.minOf { it.mTier }.toInt()
+					val minTierEnergyHatch = machine.mAllEnergyHatches.minOfOrNull { it.mTier }?.toInt() ?: 0
 					getTierChanceBonus(minTierEnergyHatch, recipeTier, 0.15)
 				}
 
