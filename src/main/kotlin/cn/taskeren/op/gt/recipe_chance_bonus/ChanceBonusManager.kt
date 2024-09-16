@@ -6,6 +6,7 @@ import cn.taskeren.op.api.IVoltageChanceBonus
 import gregtech.api.enums.GTVoltageIndex
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.interfaces.tileentity.IVoidable
+import gregtech.api.util.GT_Recipe
 import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GregtechMeta_MultiBlockBase
 import org.intellij.lang.annotations.MagicConstant
 import java.util.LinkedList
@@ -101,6 +102,24 @@ object ChanceBonusManager : OP_Logger {
 	): OptionalDouble {
 		return getChanceBonus(machine, recipeTier, prevChanceMultiplier)?.let(OptionalDouble::of)
 			?: OptionalDouble.empty()
+	}
+
+	/**
+	 * @return a copy of given recipe with bonus chances, which chances are maxed at 10_000 (100%).
+	 */
+	@JvmStatic
+	fun copyAndBonusChance(recipe: GT_Recipe, bonus: Double): GT_Recipe? {
+		return if(recipe.mChances == null) {
+			recipe
+		} else {
+			recipe.copy().apply {
+				// note that [mChances] is not being deep copied by [copy],
+				// so we need to replace it, not modify it directly.
+				mChances = mChances.map {
+					((10000.0 * bonus) + it).toInt().coerceAtMost(10000)
+				}.toIntArray()
+			}
+		}
 	}
 
 }
