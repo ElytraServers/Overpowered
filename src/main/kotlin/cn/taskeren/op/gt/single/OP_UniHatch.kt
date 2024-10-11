@@ -14,9 +14,9 @@ import gregtech.api.enums.Textures
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.metatileentity.MetaTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_InputBus
+import gregtech.api.metatileentity.implementations.MTEHatchInputBus
 import gregtech.api.render.TextureFactory
-import gregtech.api.util.GT_Utility
+import gregtech.api.util.GTUtility
 import gregtech.common.tileentities.machines.IDualInputHatch
 import gregtech.common.tileentities.machines.IDualInputInventory
 import net.minecraft.item.ItemStack
@@ -30,7 +30,7 @@ import java.util.function.Consumer
 import java.util.function.Supplier
 import kotlin.math.min
 
-class OP_UniHatch : GT_MetaTileEntity_Hatch_InputBus, IDualInputHatch {
+class OP_UniHatch : MTEHatchInputBus, IDualInputHatch {
 
 	companion object {
 		private val ITEM_SLOT_SIZE = arrayOf(1, 2, 6, 8, 18)
@@ -403,7 +403,7 @@ class OP_UniHatch : GT_MetaTileEntity_Hatch_InputBus, IDualInputHatch {
 
 		private fun updateItem() {
 			mInventory.forEachIndexed { index, item ->
-				if(GT_Utility.isStackInvalid(item)) {
+				if(GTUtility.isStackInvalid(item)) {
 					mInventory[index] = null
 				} else if(item.stackSize <= 0 && index != circuitSlot) {
 					mInventory[index] = null

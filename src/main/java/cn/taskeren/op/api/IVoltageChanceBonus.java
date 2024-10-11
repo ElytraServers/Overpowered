@@ -1,6 +1,6 @@
 package cn.taskeren.op.api;
 
-import gregtech.api.enums.GTVoltageIndex;
+import gregtech.api.enums.VoltageIndex;
 import org.intellij.lang.annotations.MagicConstant;
 
 /**
@@ -15,15 +15,15 @@ public interface IVoltageChanceBonus {
     /**
      * @return the voltage tier; ULV is 0, LV is 1, etc.
      */
-    @MagicConstant(valuesFromClass = GTVoltageIndex.class)
+    @MagicConstant(valuesFromClass = VoltageIndex.class)
     int getVoltageTier();
 
     /**
      * @return the tier that tiers after this tier are getting bonus.
      */
-    @MagicConstant(valuesFromClass = GTVoltageIndex.class)
+    @MagicConstant(valuesFromClass = VoltageIndex.class)
     default int getBaseVoltageTier() {
-        return GTVoltageIndex.ULV;
+        return VoltageIndex.ULV;
     }
 
     /**

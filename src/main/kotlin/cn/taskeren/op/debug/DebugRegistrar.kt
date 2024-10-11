@@ -1,7 +1,7 @@
 package cn.taskeren.op.debug
 
 import cn.taskeren.op.OP_Logger
-import gregtech.api.enums.GT_Values
+import gregtech.api.enums.GTValues
 import gregtech.api.enums.TierEU
 import gregtech.api.recipe.RecipeMaps
 import net.minecraft.init.Blocks
@@ -12,7 +12,7 @@ object DebugRegistrar : OP_Logger {
 
 	fun addDebugRecipes() {
 		logger.info("Adding zero-chance recipes")
-		GT_Values.RA.stdBuilder()
+		GTValues.RA.stdBuilder()
 			.itemInputs(ItemStack(Blocks.bedrock))
 			.itemOutputs(ItemStack(Items.apple), ItemStack(Items.golden_apple))
 			.outputChances(10000, 0)

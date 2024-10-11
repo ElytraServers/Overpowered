@@ -7,13 +7,13 @@ import cn.taskeren.op.translated
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.metatileentity.MetaTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Output
+import gregtech.api.metatileentity.implementations.MTEHatchOutput
 import net.minecraftforge.common.util.ForgeDirection
 import net.minecraftforge.fluids.FluidStack
 import kotlin.math.max
 import kotlin.math.min
 
-class OP_BalancedOutputHatch : GT_MetaTileEntity_Hatch_Output {
+class OP_BalancedOutputHatch : MTEHatchOutput {
 
 	private val descriptionOverride: Array<String>
 

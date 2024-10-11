@@ -5,7 +5,7 @@ import cn.taskeren.op.gt.item.impl.InsuranceReceiptItemBehaviour
 import gregtech.api.enums.ItemList
 import gregtech.api.enums.TierEU
 import gregtech.api.recipe.RecipeMapBuilder
-import gregtech.api.util.GT_RecipeBuilder
+import gregtech.api.util.GTRecipeBuilder
 
 object OP_FakeRecipe {
 
@@ -18,28 +18,22 @@ object OP_FakeRecipe {
 		.build()
 
 	init {
-		FakeInsuranceCounterRecipe.addFakeRecipe(
-			false,
-			arrayOf(OP_ItemList.InsuranceReceipt.get(1)?.also { InsuranceReceiptItemBehaviour.setBoundMetaId(it, 1189) }),
-			arrayOf(ItemList.Generator_Naquadah_Mark_V.getWithName(1, "Exploded Machine")),
-			null,
-			null,
-			null,
-			300 * GT_RecipeBuilder.SECONDS,
-			TierEU.ULV.toInt(),
-			0
-		)
-		FakeInsuranceCounterRecipe.addFakeRecipe(
-			false,
-			arrayOf(ItemList.Generator_Naquadah_Mark_V.getWithName(1, "Any Machine")),
-			arrayOf(OP_ItemList.InsuranceReceipt.get(1)),
-			null,
-			null,
-			null,
-			20,
-			TierEU.ULV.toInt(),
-			0
-		)
+		GTRecipeBuilder.builder()
+			.fake()
+			.itemInputs(OP_ItemList.InsuranceReceipt.get(1)?.also { InsuranceReceiptItemBehaviour.setBoundMetaId(it, 1189) })
+			.itemOutputs(ItemList.Generator_Naquadah_Mark_V.getWithName(1, "Exploded Machine"))
+			.duration(300 * GTRecipeBuilder.SECONDS)
+			.eut(TierEU.ULV.toInt())
+			.addTo(FakeInsuranceCounterRecipe)
+
+		GTRecipeBuilder.builder()
+			.fake()
+			.itemInputs(ItemList.Generator_Naquadah_Mark_V.getWithName(1, "Any Machine"))
+			.itemOutputs(OP_ItemList.InsuranceReceipt.get(1))
+			.duration(20)
+			.eut(TierEU.ULV.toInt())
+			.addTo(FakeInsuranceCounterRecipe)
+
 	}
 
 }

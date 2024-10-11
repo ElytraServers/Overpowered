@@ -3,8 +3,8 @@ package cn.taskeren.op.mixin.late;
 import cn.taskeren.op.gt.recipe_chance_bonus.ChanceBonusManager;
 import cn.taskeren.op.gt.utils.GTApi;
 import gregtech.api.interfaces.tileentity.IVoidable;
-import gregtech.api.util.GT_ParallelHelper;
-import gregtech.api.util.GT_Recipe;
+import gregtech.api.util.GTRecipe;
+import gregtech.api.util.ParallelHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.OptionalDouble;
 
-@Mixin(value = GT_ParallelHelper.class, remap = false)
+@Mixin(value = ParallelHelper.class, remap = false)
 public abstract class VoltageChanceBonus_GT_ParallelHelper_Mixin {
 
     @Shadow
-    private GT_Recipe recipe;
+    private GTRecipe recipe;
 
     @Shadow
     private double chanceMultiplier;

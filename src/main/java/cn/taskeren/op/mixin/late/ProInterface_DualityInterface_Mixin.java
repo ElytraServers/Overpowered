@@ -9,7 +9,7 @@ import codechicken.lib.inventory.InventoryUtils;
 import com.llamalad7.mixinextras.sugar.Local;
 import gregtech.api.interfaces.IConfigurationCircuitSupport;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import gregtech.api.util.GT_Utility;
+import gregtech.api.util.GTUtility;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -52,7 +52,7 @@ public abstract class ProInterface_DualityInterface_Mixin {
                     .filter(GTApi.INSTANCE::isConfigurationCircuit).findFirst();
 
                 circuitStackOptional.ifPresent(circuitStack -> {
-                    if (circuitSupport.getConfigurationCircuits().stream().anyMatch(allowedStack -> GT_Utility.areStacksEqual(allowedStack, circuitStack))) {
+                    if (circuitSupport.getConfigurationCircuits().stream().anyMatch(allowedStack -> GTUtility.areStacksEqual(allowedStack, circuitStack))) {
                         // set the circuit slot to the circuit stack
                         int circuitSlot = circuitSupport.getCircuitSlot();
                         bmte.getMetaTileEntity().setInventorySlotContents(circuitSlot, circuitStack.copy());

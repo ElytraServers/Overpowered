@@ -2,8 +2,8 @@ package cn.taskeren.op.gt.item
 
 import appeng.api.config.Upgrades
 import appeng.api.implementations.items.IUpgradeModule
-import gregtech.api.items.GT_MetaGenerated_Item_X32
-import gregtech.api.util.GT_Utility
+import gregtech.api.items.MetaGeneratedItemX32
+import gregtech.api.util.GTUtility
 import net.minecraft.item.ItemStack
 
 /**
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack
  *
  * @see gregtech.common.items.GT_MetaGenerated_Item_01
  */
-object OP_GeneratedAEUpgradeItem : GT_MetaGenerated_Item_X32("metaitem.op.ae"), IUpgradeModule {
+object OP_GeneratedAEUpgradeItem : MetaGeneratedItemX32("metaitem.op.ae"), IUpgradeModule {
 
 	private val upgradeTypeRegistry = mutableMapOf<ItemStack, Upgrades>()
 
@@ -25,7 +25,7 @@ object OP_GeneratedAEUpgradeItem : GT_MetaGenerated_Item_X32("metaitem.op.ae"), 
 
 	override fun getType(stack: ItemStack): Upgrades? {
 		for((item, upgrade) in upgradeTypeRegistry) {
-			if(GT_Utility.areStacksEqual(item, stack, true)) {
+			if(GTUtility.areStacksEqual(item, stack, true)) {
 				return upgrade
 			}
 		}

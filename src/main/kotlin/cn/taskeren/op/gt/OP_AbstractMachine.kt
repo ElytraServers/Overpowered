@@ -26,15 +26,14 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.metatileentity.BaseMetaTileEntity
 import gregtech.api.metatileentity.MetaTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicTank
-import gregtech.api.objects.GT_ItemStack
+import gregtech.api.metatileentity.implementations.MTEBasicMachine
+import gregtech.api.metatileentity.implementations.MTEBasicTank
+import gregtech.api.objects.GTItemStack
 import gregtech.api.objects.overclockdescriber.OverclockDescriber
 import gregtech.api.recipe.BasicUIProperties
 import gregtech.api.recipe.RecipeMap
-import gregtech.api.util.GT_Config
-import gregtech.api.util.GT_Recipe
-import gregtech.api.util.GT_TooltipDataCache
+import gregtech.api.util.GTRecipe
+import gregtech.api.util.GTTooltipDataCache
 import mcp.mobius.waila.api.IWailaConfigHandler
 import mcp.mobius.waila.api.IWailaDataAccessor
 import net.minecraft.block.Block
@@ -59,10 +58,11 @@ import java.util.ArrayList
 import net.minecraft.util.EnumChatFormatting as ECF
 
 /**
- * This class adds documents to [GT_MetaTileEntity_BasicMachine], in my (Taskeren) style.
+ * This class adds documents to [MTEBasicMachine], in my (Taskeren) style.
  *
  * You are not recommended to `extends` this class, but use this class as documentation.
- * If you do `extends` this class, you should check if this class overwrites something that differs from [GT_MetaTileEntity_BasicMachine].
+ * If you do `extends` this class,
+ * you should check if this class overwrites something that differs from [MTEBasicMachine].
  *
  * If you find some "keywords" in uppercase, like "MUST", "MUST NOT", "SHOULD", "SHOULD NOT", the meaning of it follows
  * [RFC-2119](https://datatracker.ietf.org/doc/html/rfc2119).
@@ -71,7 +71,7 @@ import net.minecraft.util.EnumChatFormatting as ECF
  *
  * @author Taskeren
  */
-abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
+abstract class OP_AbstractMachine : MTEBasicMachine {
 
 	// region Constructors
 
@@ -209,8 +209,8 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 *
 	 * @see IMetaTileEntity.onConfigLoad
 	 */
-	override fun onConfigLoad(aConfig: GT_Config) {
-		super.onConfigLoad(aConfig)
+	override fun onConfigLoad() {
+		super.onConfigLoad()
 	}
 
 	// endregion
@@ -921,7 +921,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 * Check if the [aStack] is valid to interact with slot [aIndex] in [mInventory].
 	 *
 	 * @see isValidSlot
-	 * @sample gregtech.common.tileentities.machines.basic.GT_MetaTileEntity_IndustrialApiary.isItemValidForSlot
+	 * @sample gregtech.common.tileentities.machines.basic.MTEIndustrialApiary.isItemValidForSlot
 	 */
 	override fun isItemValidForSlot(aIndex: Int, aStack: ItemStack?): Boolean {
 		return super.isItemValidForSlot(aIndex, aStack)
@@ -1198,7 +1198,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	/**
 	 * @return true if the [aCoverID] cover can be placed at the [side]
 	 */
-	override fun allowCoverOnSide(side: ForgeDirection, aCoverID: GT_ItemStack): Boolean {
+	override fun allowCoverOnSide(side: ForgeDirection, aCoverID: GTItemStack): Boolean {
 		return super.allowCoverOnSide(side, aCoverID)
 	}
 
@@ -1214,13 +1214,6 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 */
 	override fun isFacingValid(facing: ForgeDirection): Boolean {
 		return super.isFacingValid(facing)
-	}
-
-	/**
-	 * @return true if the machine uses Modular UI.
-	 */
-	override fun useModularUI(): Boolean {
-		return super.useModularUI()
 	}
 
 	/**
@@ -1266,10 +1259,10 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * The default checks:
-	 * 1. *(in [GT_MetaTileEntity_BasicTank])* [aIndex] MUST NOT be [getStackDisplaySlot]
+	 * 1. *(in [MTEBasicTank])* [aIndex] MUST NOT be [getStackDisplaySlot]
 	 * 1. [aIndex] MUST be greater than zero (0)
 	 * 1. [aIndex] MUST NOT be [getCircuitSlot]
-	 * 1. [aIndex] MUST NOT be [GT_MetaTileEntity_BasicMachine.OTHER_SLOT_COUNT] (5) + [mInputSlotCount] + length of [mOutputItems]
+	 * 1. [aIndex] MUST NOT be [MTEBasicMachine.OTHER_SLOT_COUNT] (5) + [mInputSlotCount] + length of [mOutputItems]
 	 *
 	 * @return true if [aIndex] in [mInventory] is a valid slot to store items.
 	 */
@@ -1303,7 +1296,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 *
 	 * For machines, it rotates the machine and changing the [mMainFacing] by default.
 	 *
-	 * @see GT_MetaTileEntity_BasicMachine.onValueUpdate
+	 * @see MTEBasicMachine.onValueUpdate
 	 * @see BaseMetaTileEntity.receiveClientEvent
 	 */
 	@ClientOnly("called on clientside only")
@@ -1323,7 +1316,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	/**
 	 * Play sound [aIndex] at [aX], [aY], [aZ].
 	 *
-	 * @see gregtech.api.util.GT_Utility.doSoundAtClient
+	 * @see gregtech.api.util.GTUtility.doSoundAtClient
 	 */
 	@ClientOnly("called on clientside only")
 	override fun doSound(aIndex: Byte, aX: Double, aY: Double, aZ: Double) {
@@ -1422,7 +1415,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 * @param aTextures the default texture of this machine.
 	 * @return the texture set of this machine.
 	 * @see getTexture
-	 * @see com.github.technus.tectech.thing.metaTileEntity.single.GT_MetaTileEntity_DebugPowerGenerator.getTexture
+	 * @see tectech.thing.metaTileEntity.single.MTEDebugPowerGenerator.getTexture
 	 */
 	override fun getTextureSet(aTextures: Array<out ITexture>): Array<Array<Array<ITexture>>> {
 		return super.getTextureSet(aTextures)
@@ -1431,8 +1424,8 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	// region Abstract from Basic Tank
 
 	/**
-	 * @return true if this machine extract the fluid from the fluid containers (ItemStacks like Empty Cell).
-	 * @see GT_MetaTileEntity_BasicTank.onPreTick
+	 * @return true if this machine extracts the fluid from the fluid containers (ItemStacks like Empty Cell).
+	 * @see MTEBasicTank.onPreTick
 	 */
 	override fun doesEmptyContainers(): Boolean {
 		return super.doesEmptyContainers()
@@ -1440,7 +1433,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * @return true if this machine fills the fluid containers (ItemStacks like Empty Cell) with fluid in the machine.
-	 * @see GT_MetaTileEntity_BasicTank.onPreTick
+	 * @see MTEBasicTank.onPreTick
 	 */
 	override fun doesFillContainers(): Boolean {
 		return super.doesFillContainers()
@@ -1480,7 +1473,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * @return the index of the special slot to display some ItemStacks named like "Generating: xxxEU".
-	 * @see gtPlusPlus.xmod.gregtech.common.tileentities.generators.GregtechMetaTileEntity_RTG.getStackDisplaySlot
+	 * @see gtPlusPlus.xmod.gregtech.common.tileentities.generators.MTERTGenerator.getStackDisplaySlot
 	 */
 	override fun getStackDisplaySlot(): Int {
 		return super.stackDisplaySlot
@@ -1530,7 +1523,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * @return list of ItemStack of Configuration Circuits (Programmed Circuit, P. Bio Circuit, P. Breakthrough Circuit, etc.) that this machine can provide.
-	 * @see gregtech.api.GregTech_API.getConfigurationCircuitList
+	 * @see gregtech.api.GregTechAPI.getConfigurationCircuitList
 	 */
 	override fun getConfigurationCircuits(): List<ItemStack> {
 		return super.configurationCircuits
@@ -1590,7 +1583,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	}
 
 	/**
-	 * @return true if the [side] is valid for main facing.
+	 * @return true if the [side] is valid for the main facing.
 	 */
 	override fun isValidMainFacing(side: ForgeDirection): Boolean {
 		return super.isValidMainFacing(side)
@@ -1618,8 +1611,8 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	/**
 	 * Return true if this machine has half of [getMinimumStoredEU] stored.
 	 *
-	 * @return true if this machine has enough energy to check recipe.
-	 * @see gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine.onPostTick
+	 * @return true if this machine has enough energy to check recipes.
+	 * @see gregtech.api.metatileentity.implementations.MTEBasicMachine.onPostTick
 	 * @see BaseMetaTileEntity.isUniversalEnergyStored
 	 */
 	override fun hasEnoughEnergyToCheckRecipe(): Boolean {
@@ -1636,7 +1629,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	/**
 	 * Calculate the overclock and re-assign [mEUt] and [mMaxProgresstime].
 	 */
-	override fun calculateCustomOverclock(recipe: GT_Recipe) {
+	override fun calculateCustomOverclock(recipe: GTRecipe) {
 		super.calculateCustomOverclock(recipe)
 	}
 
@@ -1673,7 +1666,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	/**
 	 * @return true if there is enough space to output the [aRecipe].
 	 */
-	override fun canOutput(aRecipe: GT_Recipe?): Boolean {
+	override fun canOutput(aRecipe: GTRecipe?): Boolean {
 		return super.canOutput(aRecipe)
 	}
 
@@ -1727,7 +1720,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	}
 
 	/**
-	 * @return true if allow to check recipe.
+	 * @return true if allow checking recipes.
 	 * @see onPostTick
 	 */
 	override fun allowToCheckRecipe(): Boolean {
@@ -1743,21 +1736,21 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	}
 
 	/**
-	 * Called when this machine starts process. Used to play sounds.
+	 * Called when this machine starts the process. Used to play sounds.
 	 */
 	override fun startProcess() {
 		super.startProcess()
 	}
 
 	/**
-	 * Called when this machine finishes process. Used to play sounds.
+	 * Called when this machine finishes the process. Used to play sounds.
 	 */
 	override fun endProcess() {
 		super.endProcess()
 	}
 
 	/**
-	 * Called when this machine stops process when aborted. Used to play sounds.
+	 * Called when this machine stops the process when aborted. Used to play sounds.
 	 */
 	override fun abortProcess() {
 		super.abortProcess()
@@ -1777,7 +1770,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 * decrease.
 	 *
 	 * @return true if this machine allows insufficient energy.
-	 * @see gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine.onPostTick
+	 * @see gregtech.api.metatileentity.implementations.MTEBasicMachine.onPostTick
 	 */
 	override fun canHaveInsufficientEnergy(): Boolean {
 		return super.canHaveInsufficientEnergy()
@@ -1785,7 +1778,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * @return true if this machine uses standard stutter sound.
-	 * @see GT_MetaTileEntity_BasicMachine.stutterProcess
+	 * @see MTEBasicMachine.stutterProcess
 	 */
 	override fun useStandardStutterSound(): Boolean {
 		return super.useStandardStutterSound()
@@ -1826,7 +1819,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	 *
 	 * The recipe metadata check should be in this method.
 	 *
-	 * Meaning of [GT_Recipe.mSpecialValue]:
+	 * Meaning of [GTRecipe.mSpecialValue]:
 	 * - `-100` requires low gravity
 	 * - `-200` requires cleanroom
 	 * - `-300` requires both low gravity and cleanroom
@@ -2038,7 +2031,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	}
 
 	// unknown usage
-	override fun getErrorTooltip(): GT_TooltipDataCache.TooltipData {
+	override fun getErrorTooltip(): GTTooltipDataCache.TooltipData {
 		return super.getErrorTooltip()
 	}
 
@@ -2101,10 +2094,10 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 	}
 
 	/**
-	 * This method gives the ability to provide multiple type of fluids, for each type,
+	 * This method gives the ability to provide multiple types of fluids; for each type,
 	 * you can create a different [FluidTankInfo].
 	 *
-	 * @return the array of tank info that are accessible from [side].
+	 * @return the array of tank info that is accessible from [side].
 	 */
 	override fun getTankInfo(side: ForgeDirection): Array<FluidTankInfo> {
 		return super.getTankInfo(side)
@@ -2135,7 +2128,7 @@ abstract class OP_AbstractMachine : GT_MetaTileEntity_BasicMachine {
 
 	/**
 	 * Called when fluid is drained from containers.
-	 * @see GT_MetaTileEntity_BasicTank.onPreTick
+	 * @see MTEBasicTank.onPreTick
 	 */
 	override fun onEmptyingContainerWhenEmpty() {
 		super.onEmptyingContainerWhenEmpty()

@@ -2,17 +2,17 @@ package cn.taskeren.op.gt.item.impl
 
 import cn.taskeren.op.api.IVoltageChanceBonus
 import cn.taskeren.op.mc.util.sendTranslatedMessage
-import gregtech.api.items.GT_MetaBase_Item
+import gregtech.api.items.MetaBaseItem
 import gregtech.api.metatileentity.CommonMetaTileEntity
-import gregtech.common.items.behaviors.Behaviour_None
+import gregtech.common.items.behaviors.BehaviourNone
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 
-object DebugItemBehaviour : Behaviour_None() {
+object DebugItemBehaviour : BehaviourNone() {
 
 	override fun onItemUse(
-		aItem: GT_MetaBase_Item,
+		aItem: MetaBaseItem,
 		aStack: ItemStack,
 		aPlayer: EntityPlayer,
 		aWorld: World,
