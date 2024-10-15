@@ -19,9 +19,9 @@ import net.minecraft.item.ItemStack
  */
 enum class OP_MachineItemList(override val id: Short) : IdItemContainer, OP_Logger {
 
-	OverpowerMachine(14301),
-	ActiveTransformerRack(14302),
-	InsuranceCounter(14303),
+	OverpowerMachine(17490),
+	ActiveTransformerRack(17491),
+	InsuranceCounter(17492),
 
 	UniHatch_ULV(17500),
 	UniHatch_LV(17501),

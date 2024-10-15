@@ -1,6 +1,7 @@
 package cn.taskeren.op.gt
 
 import cn.taskeren.op.gt.init.LazyScheduler
+import cn.taskeren.op.gt.utils.GTApi
 import cn.taskeren.op.mc.OP_CreativeTab
 import gregtech.api.enums.GTValues
 import gregtech.api.interfaces.IItemContainer
@@ -21,7 +22,12 @@ interface IdItemContainer : IItemContainer {
  * Create an instance of the block with given id. It will do the rest things for you.
  */
 fun IdItemContainer.registerMachine(block: (id: Int) -> IMetaTileEntity) = registerItem {
-	block(it).getStackForm(1)
+	try {
+		block(it).getStackForm(1)
+	} catch(e: IllegalArgumentException) {
+		GTApi.checkMetaIdCollision(id.toInt()) // throw before the cause if collision
+		throw e
+	}
 }
 
 /**

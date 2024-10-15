@@ -52,4 +52,13 @@ object GTApi {
 		return GTValues.VP.size - 1
 	}
 
+	fun checkMetaIdCollision(metaId: Int) {
+		val occupiedObject = GregTechAPI.METATILEENTITIES[metaId]
+		if(occupiedObject != null) {
+			throw IllegalArgumentException(
+				"MetaTileId collision occurred, id $metaId, has been occupied by ${occupiedObject.metaName} (${occupiedObject.javaClass})"
+			)
+		}
+	}
+
 }

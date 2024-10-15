@@ -426,12 +426,12 @@ class OP_UniHatch : MTEHatchInputBus, IDualInputHatch {
 		}
 
 		override fun getItemInputs(): Array<ItemStack>? {
-			if(isEmpty()) return null
+			if(isEmpty()) return emptyArray()
 			return mInventory.filterNotNull().toTypedArray()
 		}
 
 		override fun getFluidInputs(): Array<out FluidStack?>? {
-			if(isEmpty()) return null
+			if(isEmpty()) return emptyArray()
 			return fluidStacks.filterNotNull().toTypedArray()
 		}
 	}
