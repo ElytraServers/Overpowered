@@ -2,8 +2,8 @@
 
 package cn.taskeren.op.gt.utils
 
-import gregtech.api.enums.GT_Values
-import gregtech.api.util.GT_Utility
+import gregtech.api.enums.GTValues
+import gregtech.api.util.GTUtility
 import net.minecraft.util.EnumChatFormatting
 import java.math.BigInteger
 
@@ -34,11 +34,11 @@ data class InfoDataBuilder(private val infoDataList: MutableList<String> = mutab
 		val RESET = EnumChatFormatting.RESET.toString()
 
 		fun numberFormatted(number: Int) = numberFormatted(number.toLong())
-		fun numberFormatted(number: Long) = GT_Utility.formatNumbers(number)
-		fun numberFormatted(number: Double) = GT_Utility.formatNumbers(number)
-		fun numberFormatted(number: BigInteger) = GT_Utility.formatNumbers(number)
+		fun numberFormatted(number: Long) = GTUtility.formatNumbers(number)
+		fun numberFormatted(number: Double) = GTUtility.formatNumbers(number)
+		fun numberFormatted(number: BigInteger) = GTUtility.formatNumbers(number)
 
-		fun tiered(tier: Int) = "${GT_Values.TIER_COLORS[tier]}"
+		fun tiered(tier: Int) = "${GTValues.TIER_COLORS[tier]}"
 	}
 
 	val black = BLACK

@@ -2,19 +2,19 @@ package cn.taskeren.op.gt.item.impl
 
 import cn.taskeren.op.mc.util.isCreative
 import cn.taskeren.op.translated
-import gregtech.api.enums.GT_Values
-import gregtech.api.items.GT_MetaBase_Item
+import gregtech.api.enums.GTValues
+import gregtech.api.items.MetaBaseItem
 import gregtech.api.metatileentity.BaseMetaTileEntity
-import gregtech.common.items.behaviors.Behaviour_None
+import gregtech.common.items.behaviors.BehaviourNone
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 
-object ActiveTransformerExplosionCoreItemBehaviour : Behaviour_None() {
+object ActiveTransformerExplosionCoreItemBehaviour : BehaviourNone() {
 
 	override fun onItemUse(
-		aItem: GT_MetaBase_Item,
+		aItem: MetaBaseItem,
 		aStack: ItemStack,
 		aPlayer: EntityPlayer,
 		aWorld: World,
@@ -30,7 +30,7 @@ object ActiveTransformerExplosionCoreItemBehaviour : Behaviour_None() {
 			val te = aWorld.getTileEntity(aX, aY, aZ)
 			if(te is BaseMetaTileEntity) {
 				val stackUsed = aStack.stackSize.coerceAtMost(14)
-				te.doExplosion(GT_Values.V[(stackUsed + 1).coerceAtMost(15)])
+				te.doExplosion(GTValues.V[(stackUsed + 1).coerceAtMost(15)])
 				if(aPlayer !is EntityPlayerMP || !aPlayer.isCreative) {
 					aStack.stackSize -= stackUsed
 				}
@@ -41,7 +41,7 @@ object ActiveTransformerExplosionCoreItemBehaviour : Behaviour_None() {
 	}
 
 	override fun getAdditionalToolTips(
-		aItem: GT_MetaBase_Item,
+		aItem: MetaBaseItem,
 		aList: MutableList<String>,
 		aStack: ItemStack,
 	): MutableList<String> {

@@ -9,9 +9,9 @@ import cn.taskeren.op.mc.util.teleportChat
 import cn.taskeren.op.mc.util.translatedChat
 import cn.taskeren.op.mc.util.withGold
 import cn.taskeren.op.mc.util.withYellow
-import gregtech.api.GregTech_API
+import gregtech.api.GregTechAPI
 import gregtech.api.metatileentity.BaseMetaTileEntity
-import gregtech.api.util.GT_Utility
+import gregtech.api.util.GTUtility
 import net.minecraft.entity.player.EntityPlayerMP
 import net.minecraft.init.Items
 import net.minecraft.item.ItemStack
@@ -80,7 +80,7 @@ object InsuranceManager : OP_Logger {
 		}
 
 		// cost 25 emeralds
-		if(GT_Utility.consumeItems(
+		if(GTUtility.consumeItems(
 				player,
 				player.heldItem,
 				Items.emerald,
@@ -88,7 +88,7 @@ object InsuranceManager : OP_Logger {
 			) || player.theItemInWorldManager.isCreative
 		) {
 			if(InsuranceWorldSavedData.get().removeInsuranceInfo(player.uniqueID, mId)) {
-				GT_Utility.addItemToPlayerInventory(player, ItemStack(GregTech_API.sBlockMachines, 1, mId))
+				GTUtility.addItemToPlayerInventory(player, ItemStack(GregTechAPI.sBlockMachines, 1, mId))
 				// #tr Insurance_Message_Success
 				// #en The machine is back to your inventory!
 				// #zh 机器回到了你的背包里！

@@ -6,7 +6,7 @@ import cn.taskeren.op.insurance.InsuranceManager
 import cn.taskeren.op.mc.util.sendInvalidArgument
 import cn.taskeren.op.mc.util.sendMessage
 import cn.taskeren.op.mc.util.sendTranslatedMessage
-import gregtech.api.GregTech_API
+import gregtech.api.GregTechAPI
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
 import net.minecraft.entity.player.EntityPlayer
@@ -56,7 +56,7 @@ object CommandInsurance : CommandBase() {
 					// #zh 你的保险覆盖了%s台机器。
 					sender.sendTranslatedMessage("Insurance_Message_ExplodedMachineList", list.size)
 					list.forEach { metaId ->
-						sender.sendMessage("- ${InfoDataBuilder.BLUE}$metaId ${InfoDataBuilder.GOLD}(${GregTech_API.METATILEENTITIES[metaId]?.localName ?: "Unknown Name"})")
+						sender.sendMessage("- ${InfoDataBuilder.BLUE}$metaId ${InfoDataBuilder.GOLD}(${GregTechAPI.METATILEENTITIES[metaId]?.localName ?: "Unknown Name"})")
 					}
 				} else {
 					sender.sendMessage("Console is not allowed!")

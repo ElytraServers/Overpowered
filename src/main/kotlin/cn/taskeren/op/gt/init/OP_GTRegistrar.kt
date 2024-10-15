@@ -20,17 +20,17 @@ import cn.taskeren.op.gt.single.OP_UniHatch
 import cn.taskeren.op.gt.useItemStackPostInit
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder
 import cn.taskeren.op.gt.utils.PatternRecipeBuilder.X
-import com.github.technus.tectech.thing.CustomItemList
-import com.github.technus.tectech.thing.casing.TT_Container_Casings
 import gregtech.api.enums.ItemList
 import gregtech.api.enums.Materials
 import gregtech.api.enums.TierEU
 import gregtech.api.recipe.RecipeMaps
-import gregtech.api.util.GT_ModHandler
-import gregtech.api.util.GT_RecipeBuilder
-import gregtech.api.util.GT_Utility
+import gregtech.api.util.GTModHandler
+import gregtech.api.util.GTRecipeBuilder
+import gregtech.api.util.GTUtility
 import gtPlusPlus.xmod.gregtech.api.enums.GregtechItemList
 import net.minecraft.item.ItemStack
+import tectech.thing.CustomItemList
+import tectech.thing.casing.TTCasingsContainer
 import com.dreammaster.gthandler.CustomItemList as DreamItemList
 
 object OP_GTRegistrar {
@@ -74,7 +74,7 @@ object OP_GTRegistrar {
 		}.addRecipe(RecipeMaps.hammerRecipes) {
 			itemInputs(CustomItemList.Machine_Multi_Transformer.get(1)) // active transformer
 			itemOutputs(it.copy().also { it.stackSize = 8 })
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LV)
 		}
 		OP_ItemList.DebugItem.registerItem {
@@ -94,16 +94,17 @@ object OP_GTRegistrar {
 			// #en Adjust Configuration Circuit by Pattern
 			// #zh 根据样板调整虚拟电路板
 			addItem(it, "Programmed Upgrade", "Adjust Configuration Circuit by Pattern")
+
 		}.useItemStackPostInit {
 			registerUpgrade(it, OP_AEUpgrades.programmedUpgrade)
 		}.addRecipeSimple {
 			val definitions = AEApi.instance().definitions()
-			GT_ModHandler.addCraftingRecipe(
+			GTModHandler.addCraftingRecipe(
 				it,
 				arrayOf(
 					"BC",
 					'B', definitions.materials().basicCard().maybeStack(1).get(),
-					'C', GT_Utility.getIntegratedCircuit(0)
+					'C', GTUtility.getIntegratedCircuit(0)
 				)
 			)
 		}
@@ -124,9 +125,9 @@ object OP_GTRegistrar {
 		OP_MachineItemList.ActiveTransformerRack.registerMachine {
 			OP_ActiveTransformerRack(it, "active_transformer_rack", "Active Transformer Rack", 9)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
-			itemInputs(ItemStack(TT_Container_Casings.sBlockCasingsTT, 4), DreamItemList.HighEnergyFlowCircuit.get(1))
+			itemInputs(ItemStack(TTCasingsContainer.sBlockCasingsTT, 4), DreamItemList.HighEnergyFlowCircuit.get(1))
 			itemOutputs(it.copy().also { it.stackSize = 4 })
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LuV)
 		}
 
@@ -137,7 +138,7 @@ object OP_GTRegistrar {
 			OP_InsuranceCounter(it, "insurance_counter", "Galactic Inc. Insurance Counter", 1)
 		}.addRecipeSimple {
 			with(PatternRecipeBuilder) {
-				GT_ModHandler.addCraftingRecipe(
+				GTModHandler.addCraftingRecipe(
 					it,
 					arrayOf(
 						"WCW",
@@ -165,15 +166,15 @@ object OP_GTRegistrar {
 			OP_UniHatch(it, "uni_hatch_ulv", "UniHatch ULV", 0)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_ULV.get(1), ItemList.Hatch_Input_Bus_ULV.get(1), ItemList.Hatch_Input_ULV.get(1))
-			fluidInputs(Materials.Glue.getFluid(2L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Glue.getFluid(2L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(16 * GT_RecipeBuilder.SECONDS)
+			duration(16 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_ULV)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_ULV.get(1), ItemList.Hatch_Input_Bus_ULV.get(1), ItemList.Hatch_Input_ULV.get(1))
-			fluidInputs(Materials.AdvancedGlue.getFluid(1L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.AdvancedGlue.getFluid(1L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_ULV)
 		}
 		// #tr gt.blockmachines.uni_hatch_lv.name
@@ -183,15 +184,15 @@ object OP_GTRegistrar {
 			OP_UniHatch(it, "uni_hatch_lv", "UniHatch LV", 1)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_LV.get(1), ItemList.Hatch_Input_Bus_LV.get(1), ItemList.Hatch_Input_LV.get(1))
-			fluidInputs(Materials.AdvancedGlue.getFluid(4L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.AdvancedGlue.getFluid(4L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(16 * GT_RecipeBuilder.SECONDS)
+			duration(16 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LV)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_LV.get(1), ItemList.Hatch_Input_Bus_LV.get(1), ItemList.Hatch_Input_LV.get(1))
-			fluidInputs(Materials.Plastic.getMolten(2L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Plastic.getMolten(2L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_LV)
 		}
 		// #tr gt.blockmachines.uni_hatch_mv.name
@@ -201,15 +202,15 @@ object OP_GTRegistrar {
 			OP_UniHatch(it, "uni_hatch_mv", "UniHatch MV", 2)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_MV.get(1), ItemList.Hatch_Input_Bus_MV.get(1), ItemList.Hatch_Input_MV.get(1))
-			fluidInputs(Materials.Plastic.getMolten(16L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Plastic.getMolten(16L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(16 * GT_RecipeBuilder.SECONDS)
+			duration(16 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_MV)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_MV.get(1), ItemList.Hatch_Input_Bus_MV.get(1), ItemList.Hatch_Input_MV.get(1))
-			fluidInputs(Materials.PolyvinylChloride.getMolten(4L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.PolyvinylChloride.getMolten(4L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_MV)
 		}
 		// #tr gt.blockmachines.uni_hatch_hv.name
@@ -219,15 +220,15 @@ object OP_GTRegistrar {
 			OP_UniHatch(it, "uni_hatch_hv", "UniHatch HV", 3)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_HV.get(1), ItemList.Hatch_Input_Bus_HV.get(1), ItemList.Hatch_Input_HV.get(1))
-			fluidInputs(Materials.PolyvinylChloride.getMolten(24L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.PolyvinylChloride.getMolten(24L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(16 * GT_RecipeBuilder.SECONDS)
+			duration(16 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_HV.get(1), ItemList.Hatch_Input_Bus_HV.get(1), ItemList.Hatch_Input_HV.get(1))
-			fluidInputs(Materials.Polytetrafluoroethylene.getMolten(4L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Polytetrafluoroethylene.getMolten(4L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
 		}
 		// #tr gt.blockmachines.uni_hatch_ev.name
@@ -237,15 +238,15 @@ object OP_GTRegistrar {
 			OP_UniHatch(it, "uni_hatch_ev", "UniHatch EV", 4)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_EV.get(1), ItemList.Hatch_Input_Bus_EV.get(1), ItemList.Hatch_Input_EV.get(1))
-			fluidInputs(Materials.Polytetrafluoroethylene.getMolten(32L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Polytetrafluoroethylene.getMolten(32L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(16 * GT_RecipeBuilder.SECONDS)
+			duration(16 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_EV)
 		}.addRecipe(RecipeMaps.assemblerRecipes) {
 			itemInputs(ItemList.Hull_EV.get(1), ItemList.Hatch_Input_Bus_EV.get(1), ItemList.Hatch_Input_EV.get(1))
-			fluidInputs(Materials.Polybenzimidazole.getMolten(16L * GT_RecipeBuilder.INGOTS))
+			fluidInputs(Materials.Polybenzimidazole.getMolten(16L * GTRecipeBuilder.INGOTS))
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_EV)
 		}
 
@@ -265,7 +266,7 @@ object OP_GTRegistrar {
 				ItemList.Cover_Controller.get(1)
 			)
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
 		}
 		// #tr gt.blockmachines.balanced_output_hatch_luv.name
@@ -280,7 +281,7 @@ object OP_GTRegistrar {
 				ItemList.Cover_Controller.get(1)
 			)
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
 		}
 		// #tr gt.blockmachines.balanced_output_hatch_uhv.name
@@ -295,7 +296,7 @@ object OP_GTRegistrar {
 				ItemList.Cover_Controller.get(1)
 			)
 			itemOutputs(it)
-			duration(8 * GT_RecipeBuilder.SECONDS)
+			duration(8 * GTRecipeBuilder.SECONDS)
 			eut(TierEU.RECIPE_HV)
 		}
 

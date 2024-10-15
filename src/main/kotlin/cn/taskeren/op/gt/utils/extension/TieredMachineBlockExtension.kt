@@ -1,5 +1,5 @@
 package cn.taskeren.op.gt.utils.extension
 
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_TieredMachineBlock
+import gregtech.api.metatileentity.implementations.MTETieredMachineBlock
 
-val GT_MetaTileEntity_TieredMachineBlock.tier get() = mTier.toInt()
+val MTETieredMachineBlock.tier get() = mTier.toInt()

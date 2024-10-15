@@ -1,6 +1,6 @@
 package cn.taskeren.op.gt.utils
 
-import gregtech.api.enums.GT_Values
+import gregtech.api.enums.GTValues
 import gregtech.api.enums.ItemList
 import gregtech.api.enums.Materials
 import gregtech.api.enums.OrePrefixes
@@ -47,9 +47,9 @@ class PatternRecipeBuilder {
 				X.WIRE4 -> Tier.ELECTRIC[tier].mLargerConductingObject
 				X.STICK_DISTILLATION -> OrePrefixes.stick.get(Materials.Blaze)
 				X.GLASS -> when(tier) {
-					0, 1, 2, 3 -> ItemStack(Blocks.glass, 1, GT_Values.W.toInt())
-					4, 5, 6, 7, 8 -> "blockGlass" + GT_Values.VN[tier]
-					else -> "blockGlass" + GT_Values.VN[8]
+					0, 1, 2, 3 -> ItemStack(Blocks.glass, 1, GTValues.W.toInt())
+					4, 5, 6, 7, 8 -> "blockGlass" + GTValues.VN[tier]
+					else -> "blockGlass" + GTValues.VN[8]
 				}
 
 				X.PLATE -> when(tier) {

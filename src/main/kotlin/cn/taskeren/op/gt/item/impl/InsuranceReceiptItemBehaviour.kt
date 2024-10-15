@@ -7,16 +7,16 @@ import cn.taskeren.op.mc.util.translatedChat
 import cn.taskeren.op.mc.util.withGold
 import cn.taskeren.op.mc.util.withGray
 import cn.taskeren.op.translated
-import gregtech.api.items.GT_MetaBase_Item
+import gregtech.api.items.MetaBaseItem
 import gregtech.api.metatileentity.CommonMetaTileEntity
-import gregtech.api.util.GT_Utility
-import gregtech.common.items.behaviors.Behaviour_None
+import gregtech.api.util.GTUtility
+import gregtech.common.items.behaviors.BehaviourNone
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.world.World
 
-object InsuranceReceiptItemBehaviour : Behaviour_None() {
+object InsuranceReceiptItemBehaviour : BehaviourNone() {
 
 	fun getBoundMetaId(stack: ItemStack): Int? {
 		return stack.tagCompound?.getInteger("BoundMetaId")
@@ -35,7 +35,7 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 	}
 
 	override fun onItemUse(
-		aItem: GT_MetaBase_Item,
+		aItem: MetaBaseItem,
 		aStack: ItemStack,
 		aPlayer: EntityPlayer,
 		aWorld: World,
@@ -62,7 +62,7 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 				val split = aStack.splitStack(1)
 				setBoundMetaId(split, te.metaTileID)
 				setOwnerUuid(split, aPlayer.uniqueID.toString())
-				GT_Utility.addItemToPlayerInventory(aPlayer, split)
+				GTUtility.addItemToPlayerInventory(aPlayer, split)
 			} else {
 				setBoundMetaId(aStack, te.metaTileID)
 				setOwnerUuid(aStack, aPlayer.uniqueID.toString())
@@ -78,7 +78,7 @@ object InsuranceReceiptItemBehaviour : Behaviour_None() {
 	}
 
 	override fun getAdditionalToolTips(
-		aItem: GT_MetaBase_Item,
+		aItem: MetaBaseItem,
 		tooltips: MutableList<String>,
 		aStack: ItemStack,
 	): MutableList<String> {
