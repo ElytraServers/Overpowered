@@ -1,5 +1,12 @@
 apply plugin: "org.jetbrains.kotlin.jvm"
 
+idea {
+    module {
+        setDownloadJavadoc(true)
+        setDownloadSources(true)
+    }
+}
+
 private static String trimStart(String str) {
     def i = 0
     for (; i < str.length(); i++) {
