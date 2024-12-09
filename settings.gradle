@@ -20,11 +20,5 @@ pluginManagement {
 }
 
 plugins {
-    // FIXME: the GTNHGradle declares kotlin, and it is still 1.8! WTF?? How!
-    //        the version '1.0.27-uno' is in my personal maven repository.
-    //        you need to either wait for them to make a new release with kotlin 2.0,
-    //        or git clone https://github.com/ElytraServers/GTNHGradle to publish to your own mavenLocal,
-    //        or use my maven repository declared above.
-    //        this version should be updated after they update their god damn kotlin version!
-    id 'com.gtnewhorizons.gtnhsettingsconvention' version '1.0.27-uno'
+    id 'com.gtnewhorizons.gtnhsettingsconvention' version '1.0.28'
 }

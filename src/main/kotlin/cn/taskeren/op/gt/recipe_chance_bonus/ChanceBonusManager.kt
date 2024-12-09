@@ -3,11 +3,11 @@ package cn.taskeren.op.gt.recipe_chance_bonus
 import cn.taskeren.op.OP_Logger
 import cn.taskeren.op.OP_Logger.Companion.marker
 import cn.taskeren.op.api.IVoltageChanceBonus
-import gregtech.api.enums.GTVoltageIndex
+import gregtech.api.enums.VoltageIndex
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.interfaces.tileentity.IVoidable
-import gregtech.api.util.GT_Recipe
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GregtechMeta_MultiBlockBase
+import gregtech.api.util.GTRecipe
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase
 import org.intellij.lang.annotations.MagicConstant
 import java.util.LinkedList
 import java.util.OptionalDouble
@@ -67,7 +67,7 @@ object ChanceBonusManager : OP_Logger {
 		// support for GT++ big machines
 		addLastBonusProvider { machine, recipeTier, prevBonus ->
 			when(machine) {
-				is GregtechMeta_MultiBlockBase<*> -> {
+				is GTPPMultiBlockBase<*> -> {
 					val minTierEnergyHatch = machine.mAllEnergyHatches.minOfOrNull { it.mTier }?.toInt() ?: 0
 					getTierChanceBonus(minTierEnergyHatch, recipeTier, 0.15)
 				}
@@ -84,7 +84,7 @@ object ChanceBonusManager : OP_Logger {
 	 */
 	fun getChanceBonus(
 		machine: Any,
-		@MagicConstant(valuesFromClass = GTVoltageIndex::class) recipeTier: Int,
+		@MagicConstant(valuesFromClass = VoltageIndex::class) recipeTier: Int,
 		prevChanceMultiplier: Double,
 	): Double? {
 		return bonusProvider.firstNotNullOfOrNull { it(machine, recipeTier, prevChanceMultiplier) }
@@ -97,7 +97,7 @@ object ChanceBonusManager : OP_Logger {
 	@JvmStatic
 	fun getChanceBonusOptional(
 		machine: Any,
-		@MagicConstant(valuesFromClass = GTVoltageIndex::class) recipeTier: Int,
+		@MagicConstant(valuesFromClass = VoltageIndex::class) recipeTier: Int,
 		prevChanceMultiplier: Double,
 	): OptionalDouble {
 		return getChanceBonus(machine, recipeTier, prevChanceMultiplier)?.let(OptionalDouble::of)
@@ -108,7 +108,7 @@ object ChanceBonusManager : OP_Logger {
 	 * @return a copy of given recipe with bonus chances, which chances are maxed at 10_000 (100%).
 	 */
 	@JvmStatic
-	fun copyAndBonusChance(recipe: GT_Recipe, bonus: Double): GT_Recipe? {
+	fun copyAndBonusChance(recipe: GTRecipe, bonus: Double): GTRecipe? {
 		return if(recipe.mChances == null) {
 			recipe
 		} else {

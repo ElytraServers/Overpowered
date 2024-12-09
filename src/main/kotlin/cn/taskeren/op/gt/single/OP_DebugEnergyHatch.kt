@@ -6,18 +6,18 @@ import cn.taskeren.op.gt.utils.extension.button
 import cn.taskeren.op.gt.utils.extension.drawable
 import cn.taskeren.op.gt.utils.extension.numeric
 import cn.taskeren.op.gt.utils.extension.text
-import com.github.technus.tectech.util.TT_Utility
 import com.gtnewhorizons.modularui.api.drawable.IDrawable
 import com.gtnewhorizons.modularui.api.screen.ModularWindow
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext
-import gregtech.api.enums.GT_Values
-import gregtech.api.gui.modularui.GT_UIInfos
-import gregtech.api.gui.modularui.GT_UITextures
+import gregtech.api.enums.GTValues
+import gregtech.api.gui.modularui.GTUIInfos
+import gregtech.api.gui.modularui.GTUITextures
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.interfaces.tileentity.IWirelessEnergyHatchInformation
 import gregtech.api.metatileentity.MetaTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Energy
+import gregtech.api.metatileentity.implementations.MTEHatchEnergy
+import gregtech.api.util.GTUtility
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.nbt.NBTTagCompound
 import java.util.function.DoubleConsumer
@@ -25,7 +25,7 @@ import java.util.function.DoubleSupplier
 import java.util.function.IntConsumer
 import kotlin.math.abs
 
-class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatchInformation {
+class OP_DebugEnergyHatch : MTEHatchEnergy, IWirelessEnergyHatchInformation {
 
 	private var eu: Long = 0
 	private var amp: Long = 0
@@ -103,23 +103,19 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 	}
 
 	override fun onRightclick(aBaseMetaTileEntity: IGregTechTileEntity, aPlayer: EntityPlayer): Boolean {
-		GT_UIInfos.openGTTileEntityUI(aBaseMetaTileEntity, aPlayer)
-		return true
-	}
-
-	override fun useModularUI(): Boolean {
+		GTUIInfos.openGTTileEntityUI(aBaseMetaTileEntity, aPlayer)
 		return true
 	}
 
 	override fun addUIWidgets(builder: ModularWindow.Builder, buildContext: UIBuildContext) {
 		builder.apply {
 			drawable {
-				setDrawable(GT_UITextures.PICTURE_SCREEN_BLACK)
+				setDrawable(GTUITextures.PICTURE_SCREEN_BLACK)
 				setSize(90, 72)
 				setPos(43, 4)
 			}
 			text {
-				setStringSupplier { "TIER: " + GT_Values.VN[TT_Utility.getTier(abs(eu)).toInt()] }
+				setStringSupplier { "TIER: " + GTValues.VN[GTUtility.getTier(abs(eu)).toInt()] }
 				setDefaultColor(COLOR_TEXT_WHITE.get())
 				setPos(46, 22)
 			}
@@ -146,25 +142,25 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 				34
 			)
 
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { eu -= it }, 512, 64, 7, 4)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { eu /= it }, 512, 64, 7, 22)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { amp -= it }, 512, 64, 7, 40)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { amp /= it }, 512, 64, 7, 58)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { eu -= it }, 512, 64, 7, 4)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { eu /= it }, 512, 64, 7, 22)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { amp -= it }, 512, 64, 7, 40)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_LARGE, IntConsumer { amp /= it }, 512, 64, 7, 58)
 
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { eu -= it }, 16, 1, 25, 4)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { eu /= it }, 16, 2, 25, 22)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { amp -= it }, 16, 1, 25, 40)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { amp /= it }, 16, 2, 25, 58)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { eu -= it }, 16, 1, 25, 4)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { eu /= it }, 16, 2, 25, 22)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { amp -= it }, 16, 1, 25, 40)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_MINUS_SMALL, IntConsumer { amp /= it }, 16, 2, 25, 58)
 
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { eu += it }, 16, 1, 133, 4)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { eu *= it }, 16, 2, 133, 22)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { amp += it }, 16, 1, 133, 40)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { amp *= it }, 16, 2, 133, 58)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { eu += it }, 16, 1, 133, 4)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { eu *= it }, 16, 2, 133, 22)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { amp += it }, 16, 1, 133, 40)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_SMALL, IntConsumer { amp *= it }, 16, 2, 133, 58)
 
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { eu += it }, 512, 64, 151, 4)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { eu *= it }, 512, 64, 151, 22)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { amp += it }, 512, 64, 151, 40)
-			addChangeNumberButton(GT_UITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { amp *= it }, 512, 64, 151, 58)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { eu += it }, 512, 64, 151, 4)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { eu *= it }, 512, 64, 151, 22)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { amp += it }, 512, 64, 151, 40)
+			addChangeNumberButton(GTUITextures.OVERLAY_BUTTON_PLUS_LARGE, IntConsumer { amp *= it }, 512, 64, 151, 58)
 		}
 	}
 
@@ -174,7 +170,7 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 		getter: DoubleSupplier,
 		setter: DoubleConsumer,
 		xPos: Int,
-		yPos: Int
+		yPos: Int,
 	) {
 		text(label) {
 			setDefaultColor(COLOR_TEXT_WHITE.get())
@@ -184,7 +180,7 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 			setGetter(getter)
 			setSetter(setter)
 			setTextColor(COLOR_TEXT_WHITE.get())
-			setBackground(GT_UITextures.BACKGROUND_TEXT_FIELD.withOffset(-1F, -1F, 2F, 2F))
+			setBackground(GTUITextures.BACKGROUND_TEXT_FIELD.withOffset(-1F, -1F, 2F, 2F))
 			setPos(xPos + labelWidth, yPos - 1)
 			setSize(56, 10)
 		}
@@ -196,13 +192,13 @@ class OP_DebugEnergyHatch : GT_MetaTileEntity_Hatch_Energy, IWirelessEnergyHatch
 		changeNumberShift: Int,
 		changeNumber: Int,
 		xPos: Int,
-		yPos: Int
+		yPos: Int,
 	) {
 		button {
 			setOnClick { clickData, widget ->
 				setter.accept(if(clickData.shift) changeNumberShift else changeNumber)
 			}
-			setBackground(GT_UITextures.BUTTON_STANDARD, overlay)
+			setBackground(GTUITextures.BUTTON_STANDARD, overlay)
 			setSize(18, 18)
 			setPos(xPos, yPos)
 		}

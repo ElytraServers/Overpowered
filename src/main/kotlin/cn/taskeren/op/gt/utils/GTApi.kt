@@ -1,17 +1,17 @@
 package cn.taskeren.op.gt.utils
 
 import cn.taskeren.op.utils.MixinAccessorBridge
-import gregtech.api.GregTech_API
-import gregtech.api.enums.GTVoltageIndex
-import gregtech.api.enums.GT_Values
+import gregtech.api.GregTechAPI
+import gregtech.api.enums.GTValues
+import gregtech.api.enums.VoltageIndex
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
-import gregtech.api.util.GT_Utility
+import gregtech.api.util.GTUtility
 import net.minecraft.item.ItemStack
 import org.intellij.lang.annotations.MagicConstant
 
 object GTApi {
 
-	val MachineBlock get() = GregTech_API.sBlockMachines
+	val MachineBlock get() = GregTechAPI.sBlockMachines
 
 	fun getMachineItemStack(metaId: Int): ItemStack {
 		require(getMetaTileEntityById(metaId) != null) { "Invalid MetaTileId: $metaId" }
@@ -34,22 +34,31 @@ object GTApi {
 		return getMachineUnlocalizedName(metaId) ?: "Overpowered_UnknownMachine"
 	}
 
-	fun getMetaTileEntityById(metaId: Int) = GregTech_API.METATILEENTITIES.getOrNull(metaId)
+	fun getMetaTileEntityById(metaId: Int) = GregTechAPI.METATILEENTITIES.getOrNull(metaId)
 
 	val configurationCircuits: Collection<ItemStack>
 		get() = MixinAccessorBridge.getRealConfigurationList().values()
 
 	fun isConfigurationCircuit(stack: ItemStack): Boolean =
-		configurationCircuits.any { GT_Utility.areStacksEqual(stack, it) }
+		configurationCircuits.any { GTUtility.areStacksEqual(stack, it) }
 
 	/**
 	 * @see GT_Utility.getTier
 	 */
-	@MagicConstant(valuesFromClass = GTVoltageIndex::class)
+	@MagicConstant(valuesFromClass = VoltageIndex::class)
 	fun getVoltagePracticalTier(eut: Long): Int {
 		var i = -1
-		while(++i < GT_Values.VP.size) if(eut <= GT_Values.VP[i]) return i
-		return GT_Values.VP.size - 1
+		while(++i < GTValues.VP.size) if(eut <= GTValues.VP[i]) return i
+		return GTValues.VP.size - 1
+	}
+
+	fun checkMetaIdCollision(metaId: Int) {
+		val occupiedObject = GregTechAPI.METATILEENTITIES[metaId]
+		if(occupiedObject != null) {
+			throw IllegalArgumentException(
+				"MetaTileId collision occurred, id $metaId, has been occupied by ${occupiedObject.metaName} (${occupiedObject.javaClass})"
+			)
+		}
 	}
 
 }

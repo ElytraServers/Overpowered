@@ -3,6 +3,7 @@ package cn.taskeren.op.mc.command
 import cn.taskeren.op.OP_Logger
 import cn.taskeren.op.gt.utils.GTApi
 import cn.taskeren.op.gt.utils.InfoDataBuilder
+import cn.taskeren.op.kubatech.api.helpers.ReflectionHelper
 import cn.taskeren.op.mc.util.plainChat
 import cn.taskeren.op.mc.util.sendMessage
 import cn.taskeren.op.mc.util.translatedChat
@@ -10,10 +11,9 @@ import cn.taskeren.op.mc.util.withBlue
 import cn.taskeren.op.mc.util.withDarkGray
 import cn.taskeren.op.mc.util.withGold
 import cn.taskeren.op.mc.util.withGray
-import gregtech.api.GregTech_API
+import gregtech.api.GregTechAPI
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
-import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GregtechMeta_MultiBlockBase
-import kubatech.api.helpers.ReflectionHelper
+import gtPlusPlus.xmod.gregtech.api.metatileentity.implementations.base.GTPPMultiBlockBase
 import net.minecraft.command.CommandBase
 import net.minecraft.command.ICommandSender
 import net.minecraft.launchwrapper.Launch
@@ -30,7 +30,7 @@ object CommandOverpoweredDarkArts : CommandBase(), OP_Logger {
 	 */
 	private fun getMachinesByClass(c: Class<*>): List<IMetaTileEntity>? {
 		return if(IMetaTileEntity::class.java.isAssignableFrom(c)) {
-			GregTech_API.METATILEENTITIES.filterNotNull().filter {
+			GregTechAPI.METATILEENTITIES.filterNotNull().filter {
 				c.isAssignableFrom(it::class.java)
 			}
 		} else {
@@ -103,7 +103,7 @@ object CommandOverpoweredDarkArts : CommandBase(), OP_Logger {
 
 	init {
 		tasks["listVoltageBonus"] = { sender, args ->
-			val subClasses = DarkArts.getAllSubClasses<GregtechMeta_MultiBlockBase<*>>()
+			val subClasses = DarkArts.getAllSubClasses<GTPPMultiBlockBase<*>>()
 			logger.info("Subclasses ({})", subClasses.size)
 			subClasses.forEach {
 				logMachineClass(sender, it)

@@ -7,18 +7,17 @@ import cn.taskeren.op.gt.utils.extension.drawable
 import cn.taskeren.op.gt.utils.extension.slot
 import cn.taskeren.op.gt.utils.extension.text
 import cn.taskeren.op.translated
-import com.github.technus.tectech.thing.metaTileEntity.hatch.GT_MetaTileEntity_Hatch_DynamoMulti
 import com.gtnewhorizons.modularui.api.forge.ItemStackHandler
 import com.gtnewhorizons.modularui.api.screen.ModularWindow
 import com.gtnewhorizons.modularui.api.screen.UIBuildContext
-import gregtech.api.GregTech_API
-import gregtech.api.gui.modularui.GT_UIInfos
-import gregtech.api.gui.modularui.GT_UITextures
+import gregtech.api.GregTechAPI
+import gregtech.api.gui.modularui.GTUIInfos
+import gregtech.api.gui.modularui.GTUITextures
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
 import gregtech.api.metatileentity.MetaTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Dynamo
-import gregtech.api.util.GT_Utility
+import gregtech.api.metatileentity.implementations.MTEHatchDynamo
+import gregtech.api.util.GTUtility
 import mcp.mobius.waila.api.IWailaConfigHandler
 import mcp.mobius.waila.api.IWailaDataAccessor
 import net.minecraft.entity.player.EntityPlayer
@@ -28,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.world.World
 import net.minecraftforge.common.util.ForgeDirection
+import tectech.thing.metaTileEntity.hatch.MTEHatchDynamoMulti
 
 /**
  * A hatch for Active Transformer to enable hot-plug Dynamos.
@@ -35,7 +35,7 @@ import net.minecraftforge.common.util.ForgeDirection
  * @see com.github.technus.tectech.thing.metaTileEntity.multi.GT_MetaTileEntity_EM_transformer
  * @see com.github.technus.tectech.thing.metaTileEntity.multi.GT_MetaTileEntity_EM_transformer.powerPass
  */
-class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
+class OP_ActiveTransformerRack : MTEHatchDynamoMulti {
 
 	companion object {
 		private val DESC = arrayOf(
@@ -96,8 +96,8 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 	fun getDynamoTileEntity(): MetaTileEntity? {
 		val dynamoItem = dynamoItemStack
 		if(dynamoItem == null || !OP.isMachineBlock(dynamoItem.item)) return null
-		val mte = GregTech_API.METATILEENTITIES.getOrNull(dynamoItem.itemDamage) ?: return null
-		return if(mte is GT_MetaTileEntity_Hatch_Dynamo || mte is GT_MetaTileEntity_Hatch_DynamoMulti) {
+		val mte = GregTechAPI.METATILEENTITIES.getOrNull(dynamoItem.itemDamage) ?: return null
+		return if(mte is MTEHatchDynamo || mte is MTEHatchDynamoMulti) {
 			mte
 		} else {
 			null
@@ -142,12 +142,12 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 
 	override fun saveNBTData(aNBT: NBTTagCompound) {
 		super.saveNBTData(aNBT)
-		GT_Utility.saveItem(aNBT, "dynamo", dynamoItemStack)
+		GTUtility.saveItem(aNBT, "dynamo", dynamoItemStack)
 	}
 
 	override fun loadNBTData(aNBT: NBTTagCompound) {
 		super.loadNBTData(aNBT)
-		dynamoItemStack = GT_Utility.loadItem(aNBT, "dynamo")
+		dynamoItemStack = GTUtility.loadItem(aNBT, "dynamo")
 	}
 
 	// texture
@@ -164,26 +164,22 @@ class OP_ActiveTransformerRack : GT_MetaTileEntity_Hatch_DynamoMulti {
 	}
 
 	override fun onRightclick(aBaseMetaTileEntity: IGregTechTileEntity, aPlayer: EntityPlayer): Boolean {
-		GT_UIInfos.openGTTileEntityUI(aBaseMetaTileEntity, aPlayer)
+		GTUIInfos.openGTTileEntityUI(aBaseMetaTileEntity, aPlayer)
 		return true
 	}
 
 	// ui
 
-	override fun useModularUI(): Boolean {
-		return true
-	}
-
 	override fun addUIWidgets(builder: ModularWindow.Builder, buildContext: UIBuildContext) {
 		builder.apply {
 			drawable {
-				setDrawable(GT_UITextures.PICTURE_SCREEN_BLACK)
+				setDrawable(GTUITextures.PICTURE_SCREEN_BLACK)
 				setPos(7, 16)
 				setSize(138, 45)
 			}
 			slot(inventoryHandler, 0) {
 				setAccess(true, true)
-				setBackground(guiTextureSet.itemSlot, GT_UITextures.OVERLAY_SLOT_IN)
+				setBackground(guiTextureSet.itemSlot, GTUITextures.OVERLAY_SLOT_IN)
 				setPos(150, 16)
 			}
 			text("Possibly Routing") {

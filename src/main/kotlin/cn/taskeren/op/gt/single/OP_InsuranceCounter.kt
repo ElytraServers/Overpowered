@@ -19,15 +19,15 @@ import cn.taskeren.op.translated
 import gregtech.api.interfaces.ITexture
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine
+import gregtech.api.metatileentity.implementations.MTEBasicMachine
 import gregtech.api.recipe.RecipeMap
-import gregtech.api.util.GT_RecipeBuilder
-import gregtech.api.util.GT_Utility
+import gregtech.api.util.GTRecipeBuilder
+import gregtech.api.util.GTUtility
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.Item
 import java.util.UUID
 
-class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
+class OP_InsuranceCounter : MTEBasicMachine {
 
 	companion object {
 		val DESC = arrayOf(
@@ -77,7 +77,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 		if(getOutputAt(0) != null) return DID_NOT_FIND_RECIPE
 
 		// refund machines from insurance receipts
-		if(GT_Utility.areStacksEqual(OP_ItemList.InsuranceReceipt.get(1), item, true)) {
+		if(GTUtility.areStacksEqual(OP_ItemList.InsuranceReceipt.get(1), item, true)) {
 			val uuid = InsuranceReceiptItemBehaviour.getOwnerUuid(item)?.let(UUID::fromString)
 			val metaId = InsuranceReceiptItemBehaviour.getBoundMetaId(item)
 			if(uuid == null || metaId == null) return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS
@@ -89,7 +89,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 				mOutputItems[0] = refundItem
 				item.stackSize -= 1
 				// fixed time
-				mMaxProgresstime = 300 * GT_RecipeBuilder.SECONDS
+				mMaxProgresstime = 300 * GTRecipeBuilder.SECONDS
 				return FOUND_AND_SUCCESSFULLY_USED_RECIPE
 			} else {
 				return FOUND_RECIPE_BUT_DID_NOT_MEET_REQUIREMENTS
@@ -105,7 +105,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 		}
 
 		// (hidden) convert living bio chip to dying bio chip
-		if(GT_Utility.areStacksEqual(OP.livingBioChip, item, true)) {
+		if(GTUtility.areStacksEqual(OP.livingBioChip, item, true)) {
 			mOutputItems[0] = OP_ItemList.DyingBioChip.get(1)
 			item.stackSize -= 1
 			mMaxProgresstime = 1
@@ -122,7 +122,7 @@ class OP_InsuranceCounter : GT_MetaTileEntity_BasicMachine {
 	override fun onRightclick(aBaseMetaTileEntity: IGregTechTileEntity, aPlayer: EntityPlayer): Boolean {
 		if(aBaseMetaTileEntity.isServerSide) {
 			val item = aPlayer.heldItem
-			if(GT_Utility.areStacksEqual(item, OP_ItemList.InsuranceReceipt.get(1), true)) {
+			if(GTUtility.areStacksEqual(item, OP_ItemList.InsuranceReceipt.get(1), true)) {
 				val list = InsuranceManager.getMyExplodedMachines(aPlayer.uniqueID)
 				val counts = list.groupingBy { it }.eachCount()
 				counts.forEach { metaId, count ->
